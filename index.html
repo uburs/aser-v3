@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced ASR Captions</title>
+    <title>Emotion-Enhanced Captions</title>
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -15,7 +15,6 @@
             margin: 0;
         }
         .container {
-            position: relative;
             width: 90%;
             height: 80%;
             border: 2px solid #000;
@@ -23,105 +22,67 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            position: relative;
         }
-        .caption-overlay {
-            position: absolute;
-            bottom: 0;
+        .caption-box {
             width: 100%;
-            max-height: 40%;
-            overflow-y: hidden;
+            height: 100%;
             padding: 20px;
-            text-align: center;
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
+            overflow-y: auto;
             font-size: 18px;
             line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: #fff;
+        }
+        .emotion-happy {
+            color: green;
+        }
+        .emotion-sad {
+            color: blue;
+        }
+        .emotion-angry {
+            color: red;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
         }
         .caption-text {
             display: inline-block;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .happy {
-            color: green;
-        }
-        .sad {
-            color: blue;
-        }
-        .angry {
-            color: red;
-        }
-        .neutral {
-            color: white;
-        }
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <video id="video" autoplay muted></video>
-        <div class="caption-overlay" id="captionBox">
+        <div class="caption-box" id="captionBox">
             <!-- Captions will appear here -->
         </div>
     </div>
 
     <script>
         const captions = [
-            { text: "Hello everyone! 😊 Welcome to our session. Today, we are thrilled to present some groundbreaking findings that could revolutionize our field.", emotion: "happy" },
-            { text: "I am excited to share this with you because it's not every day we come across such significant results. These findings have the potential to change how we approach our research.", emotion: "happy" },
-            { text: "The results are surprising, to say the least. When we first started this project, we had a hypothesis that seemed plausible, but the data we gathered exceeded our expectations.", emotion: "neutral" },
-            { text: "We should be cautious with our conclusions, though. While the data is promising, we need to ensure that our interpretations are accurate and that we consider all possible variables.", emotion: "sad" },
-            { text: "It's essential to approach these results with a critical eye and remain open to further testing and validation.", emotion: "neutral" },
-            { text: "Thank you for your attention. We believe that by working together and sharing these insights, we can make significant strides in our field.", emotion: "happy" },
-            { text: "However, I must express some frustration. The process has not been without its challenges, and there were moments of doubt and setbacks.", emotion: "angry" },
-            { text: "But through perseverance and dedication, we managed to overcome these obstacles. This journey has taught us valuable lessons about resilience and innovation.", emotion: "neutral" },
-            { text: "Let's continue to collaborate and support each other as we explore these new frontiers. The future holds great promise, and together, we can achieve remarkable things.", emotion: "happy" }
+            { text: "Hello everyone!", emotion: "happy" },
+            { text: "I am excited to share this with you.", emotion: "happy" },
+            { text: "The results are surprising.", emotion: "neutral" },
+            { text: "We should be cautious with our conclusions.", emotion: "sad" },
+            { text: "Thank you for your attention.", emotion: "happy" }
         ];
 
-        const video = document.getElementById('video');
         const captionBox = document.getElementById('captionBox');
 
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                video.srcObject = stream;
-                video.play();
-            });
-        }
-
-        let captionIndex = 0;
-
-        function displayCaption() {
-            if (captionIndex < captions.length) {
-                const { text, emotion } = captions[captionIndex];
-                const captionText = document.createElement('span');
-                captionText.classList.add('caption-text', emotion);
-                captionText.textContent = text;
-                captionBox.appendChild(captionText);
+        captions.forEach((caption, i) => {
+            setTimeout(() => {
+                const span = document.createElement('span');
+                span.classList.add('caption-text', `emotion-${caption.emotion}`);
+                span.textContent = caption.text;
+                captionBox.appendChild(span);
                 captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
-
-                captionIndex++;
-                setTimeout(displayCaption, 3000); // Adjust the speed of the captions here
-            }
-        }
-
-        displayCaption();
+            }, i * 2000); // Adjust the speed of the captions here
+        });
     </script>
 </body>
 </html>
