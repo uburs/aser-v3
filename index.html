@@ -54,14 +54,14 @@
                 opacity: 1;
             }
         }
+        .emphasis {
+            font-weight: bold;
+        }
         .happy {
             color: green;
         }
         .sad {
             color: blue;
-        }
-        .angry {
-            color: red;
         }
         .neutral {
             color: white;
@@ -84,15 +84,19 @@
 
     <script>
         const captions = [
-            { text: "Hello everyone! 😊 Welcome to our session. Today, we are thrilled to present some groundbreaking findings that could revolutionize our field.", emotion: "happy" },
-            { text: "I am excited to share this with you because it's not every day we come across such significant results. These findings have the potential to change how we approach our research.", emotion: "happy" },
-            { text: "The results are surprising, to say the least. When we first started this project, we had a hypothesis that seemed plausible, but the data we gathered exceeded our expectations.", emotion: "neutral" },
-            { text: "We should be cautious with our conclusions, though. While the data is promising, we need to ensure that our interpretations are accurate and that we consider all possible variables.", emotion: "sad" },
-            { text: "It's essential to approach these results with a critical eye and remain open to further testing and validation.", emotion: "neutral" },
-            { text: "Thank you for your attention. We believe that by working together and sharing these insights, we can make significant strides in our field.", emotion: "happy" },
-            { text: "However, I must express some frustration. The process has not been without its challenges, and there were moments of doubt and setbacks.", emotion: "angry" },
-            { text: "But through perseverance and dedication, we managed to overcome these obstacles. This journey has taught us valuable lessons about resilience and innovation.", emotion: "neutral" },
-            { text: "Let's continue to collaborate and support each other as we explore these new frontiers. The future holds great promise, and together, we can achieve remarkable things.", emotion: "happy" }
+            { text: "Welcome to the world of Computer Science! 😊 Computer Science is an exciting and ever-evolving field that encompasses the study of computation, automation, and information.", emotion: "happy" },
+            { text: "It involves understanding algorithms, data structures, and the principles of computer and network design.", emotion: "neutral" },
+            { text: "Computer Science is the foundation of modern technology, driving innovations in areas such as artificial intelligence, machine learning, and big data.", emotion: "happy" },
+            { text: "A strong grasp of programming languages and software development is essential for anyone looking to succeed in this field.", emotion: "neutral" },
+            { text: "Programming allows us to create software that can perform complex tasks, solve problems, and improve efficiency.", emotion: "happy" },
+            { text: "Data structures, such as arrays, linked lists, and trees, are fundamental concepts that help us organize and store data efficiently.", emotion: "neutral" },
+            { text: "Understanding algorithms is crucial as they provide step-by-step instructions to perform tasks and solve problems.", emotion: "neutral" },
+            { text: "Artificial Intelligence and Machine Learning are particularly fascinating areas within Computer Science. These technologies enable machines to learn from data and make decisions, mimicking human intelligence.", emotion: "happy" },
+            { text: "AI and ML are being used in a wide range of applications, from self-driving cars to personalized recommendations on streaming services.", emotion: "neutral" },
+            { text: "It's essential to stay updated with the latest trends and advancements in technology. The field of Computer Science is always changing, with new languages, tools, and techniques emerging regularly.", emotion: "neutral" },
+            { text: "By mastering the principles of Computer Science, you can become a part of this dynamic field and contribute to the technological advancements that shape our world.", emotion: "happy" },
+            { text: "Whether you're interested in developing cutting-edge software, designing innovative hardware, or exploring the possibilities of AI and ML, Computer Science offers endless opportunities.", emotion: "neutral" },
+            { text: "Thank you for joining us on this journey through the fascinating world of Computer Science! 😊 We hope you're as excited as we are about the endless possibilities and opportunities this field has to offer.", emotion: "happy" }
         ];
 
         const video = document.getElementById('video');
@@ -110,11 +114,22 @@
         function displayCaption() {
             if (captionIndex < captions.length) {
                 const { text, emotion } = captions[captionIndex];
-                const captionText = document.createElement('span');
-                captionText.classList.add('caption-text', emotion);
-                captionText.textContent = text;
-                captionBox.appendChild(captionText);
-                captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                const words = text.split(' ');
+                let chunk = '';
+                words.forEach((word, i) => {
+                    if ((i + 1) % 5 === 0 || i === words.length - 1) {
+                        chunk += word + ' ';
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text', emotion);
+                        span.innerHTML = chunk
+                            .replace(/Computer Science|algorithms|data structures|programming languages|artificial intelligence|machine learning/gi, (match) => `<span class="emphasis">${match}</span>`);
+                        captionBox.appendChild(span);
+                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        chunk = '';
+                    } else {
+                        chunk += word + ' ';
+                    }
+                });
 
                 captionIndex++;
                 setTimeout(displayCaption, 3000); // Adjust the speed of the captions here
@@ -125,3 +140,4 @@
     </script>
 </body>
 </html>
+
