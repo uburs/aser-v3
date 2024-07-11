@@ -34,9 +34,9 @@
             overflow-y: auto;
             font-size: 18px;
             line-height: 1.5;
-        }
-        .caption-box {
-            border-right: 2px solid #000;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-start;
         }
         .caption-overlay {
             position: absolute;
@@ -51,9 +51,6 @@
             border-radius: 10px;
             font-size: 18px;
             line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         .caption-text {
             display: inline-block;
@@ -134,15 +131,16 @@
     </div>
 
     <div id="prototype4" class="container">
-        <div class="caption-box" id="captionBox4">
-            <!-- Captions will appear here -->
-        </div>
         <div class="avatar-box">
             <img src="avatar.png" alt="Avatar" class="avatar" id="avatar">
+        </div>
+        <div class="caption-box" id="captionBox4">
+            <!-- Captions will appear here -->
         </div>
     </div>
 
     <div class="navigation">
+        <button id="prevButton" onclick="showPrevious()">Previous</button>
         <button id="nextButton" onclick="showNext()">Next</button>
     </div>
 
@@ -174,7 +172,7 @@
                         span.classList.add('caption-text');
                         span.textContent = chunk;
                         captionBox.appendChild(span);
-                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        captionBox.scrollTop = 0; // Scroll to top
                         chunk = '';
                     } else {
                         chunk += word + ' ';
@@ -197,7 +195,7 @@
                         span.innerHTML = chunk
                             .replace(/Chemistry|properties|matter|elements|compounds/gi, (match) => `<strong>${match}</strong>`);
                         captionBox.appendChild(span);
-                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        captionBox.scrollTop = 0; // Scroll to top
                         chunk = '';
                     } else {
                         chunk += word + ' ';
@@ -221,7 +219,7 @@
                         span.innerHTML = chunk
                             .replace(/Computer Science|algorithms|data structures|programming languages|artificial intelligence|machine learning/gi, (match) => `<span class="emphasis">${match}</span>`);
                         captionBox.appendChild(span);
-                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        captionBox.scrollTop = 0; // Scroll to top
                         chunk = '';
                     } else {
                         chunk += word + ' ';
@@ -261,6 +259,7 @@
         }
 
         document.getElementById('nextButton').addEventListener('click', showNext);
+        document.getElementById('prevButton').addEventListener('click', showPrevious);
     </script>
 </body>
 </html>
