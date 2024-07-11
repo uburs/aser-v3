@@ -97,6 +97,35 @@
             flex-direction: column;
             align-items: center;
         }
+        .emotion-detection-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: hidden;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+        }
+        .emotion-text {
+            display: inline-block;
+            margin-right: 5px;
+            animation: moveUp 10s linear infinite;
+        }
+        @keyframes moveUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(-100%);
+            }
+        }
         .navigation {
             position: absolute;
             bottom: 20px;
@@ -150,13 +179,35 @@
         </div>
     </div>
 
+    <div id="page4" class="container">
+        <div class="video-box" style="width: 100%;">
+            <video id="video4" autoplay muted></video>
+            <div class="emotion-detection-overlay" id="captionBox4">
+                <!-- Captions will appear here -->
+            </div>
+        </div>
+        <div class="navigation">
+            <button onclick="showPrevious()">Previous</button>
+            <button onclick="showNext()">Next</button>
+        </div>
+    </div>
+
     <script>
         const fullText = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
         const enhancedText = "Introduction to Computer Science: <b>Computer science</b> is the study of <b>computation</b>, <b>automation</b>, and <b>information</b>. It involves the theory of <b>computation</b>, <b>algorithms</b>, <b>data structures</b>, <b>computer and network design</b>, and <b>artificial intelligence</b>. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including <b>programming</b>, <b>systems architecture</b>, <b>databases</b>, and <b>software engineering</b>. Additionally, fields like <b>artificial intelligence</b>, <b>machine learning</b>, and <b>data science</b> have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
-
+        const emotionText = "Hello everyone! 😊 Welcome to our session. I am excited 😄 to share this with you. The results are surprising 😲. We should be cautious 😟 with our conclusions. Thank you for your attention. 🙏";
+        
         const captions = fullText.split(' ').map(word => ({ text: word, emotion: "neutral" }));
         const enhancedCaptions = enhancedText.split(' ').map(word => {
             return { text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) };
+        });
+        const emotionCaptions = emotionText.split(' ').map(word => {
+            let emotion = "neutral";
+            if (/😊|😄/.test(word)) emotion = "happy";
+            else if (/😲/.test(word)) emotion = "surprised";
+            else if (/😟/.test(word)) emotion = "sad";
+            else if (/🙏/.test(word)) emotion = "thankful";
+            return { text: word, emotion };
         });
 
         function displayCaption(captionBox, textArray, index = 0) {
@@ -215,10 +266,25 @@
             }
         }
 
+        function displayEmotionCaption(captionBox, textArray, index = 0) {
+            if (index < textArray.length) {
+                setTimeout(() => {
+                    const { text, emotion } = textArray[index];
+                    const span = document.createElement('span');
+                    span.classList.add('emotion-text', `emotion-${emotion}`);
+                    span.textContent = text;
+                    captionBox.appendChild(span);
+                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                    displayEmotionCaption(captionBox, textArray, index + 1);
+                }, 500); // Adjust the speed of the captions here
+            }
+        }
+
         window.onload = () => {
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
             displayEnhancedCaption(document.getElementById('captionBox3'), enhancedCaptions);
+            displayEmotionCaption(document.getElementById('captionBox4'), emotionCaptions);
         };
 
         function showPrevious() {
@@ -247,6 +313,8 @@
                 document.getElementById('video2').play();
                 document.getElementById('video3').srcObject = stream;
                 document.getElementById('video3').play();
+                document.getElementById('video4').srcObject = stream;
+                document.getElementById('video4').play();
             });
         }
     </script>
