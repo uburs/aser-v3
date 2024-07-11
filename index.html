@@ -105,7 +105,7 @@
             overflow-y: hidden;
             padding: 20px;
             text-align: center;
-            color: white;
+            color: black;
             font-size: 18px;
             line-height: 1.5;
             display: flex;
@@ -180,11 +180,8 @@
     </div>
 
     <div id="page4" class="container">
-        <div class="video-box" style="width: 100%;">
-            <video id="video4" autoplay muted></video>
-            <div class="emotion-detection-overlay" id="captionBox4">
-                <!-- Captions will appear here -->
-            </div>
+        <div class="emotion-detection-overlay" id="captionBox4">
+            <!-- Captions will appear here -->
         </div>
         <div class="navigation">
             <button onclick="showPrevious()">Previous</button>
@@ -284,7 +281,7 @@
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
             displayEnhancedCaption(document.getElementById('captionBox3'), enhancedCaptions);
-            displayEmotionCaption(document.getElementById('captionBox4'), emotionCaptions);
+            displayFlowingEmotionCaption(document.getElementById('captionBox4'), emotionCaptions);
         };
 
         function showPrevious() {
@@ -305,17 +302,35 @@
             }
         }
 
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                document.getElementById('video1').srcObject = stream;
-                document.getElementById('video1').play();
-                document.getElementById('video2').srcObject = stream;
-                document.getElementById('video2').play();
-                document.getElementById('video3').srcObject = stream;
-                document.getElementById('video3').play();
-                document.getElementById('video4').srcObject = stream;
-                document.getElementById('video4').play();
-            });
+        function displayFlowingEmotionCaption(captionBox, textArray) {
+            let index = 0;
+            let line = [];
+            
+            function addLine() {
+                if (index < textArray.length) {
+                    line.push(textArray[index]);
+                    index++;
+                    if (line.length === 7 || index === textArray.length) {
+                        const span = document.createElement('span');
+                        span.classList.add('emotion-text');
+                        line.forEach(wordObj => {
+                            const wordSpan = document.createElement('span');
+                            wordSpan.classList.add(`emotion-${wordObj.emotion}`);
+                            wordSpan.textContent = wordObj.text + ' ';
+                            span.appendChild(wordSpan);
+                        });
+                        captionBox.appendChild(span);
+                        captionBox.appendChild(document.createElement('br'));
+                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        line = [];
+                        setTimeout(addLine, 1000); // Adjust the speed of the captions here
+                    } else {
+                        setTimeout(addLine, 0);
+                    }
+                }
+            }
+
+            addLine();
         }
     </script>
 </body>
