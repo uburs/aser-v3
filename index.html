@@ -134,8 +134,23 @@
         </div>
     </div>
 
+    <div id="page3" class="container">
+        <div class="video-box">
+            <video id="video3" autoplay muted></video>
+        </div>
+        <div class="caption-box" id="captionBox3">
+            <!-- Captions will appear here -->
+        </div>
+        <div class="navigation">
+            <button onclick="showPrevious()">Previous</button>
+            <button onclick="showNext()">Next</button>
+        </div>
+    </div>
+
     <script>
         const fullText = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
+        const enhancedText = "Introduction to Computer Science: <b>Computer science</b> is the study of <b>computation</b>, <b>automation</b>, and <b>information</b>. It involves the theory of <b>computation</b>, <b>algorithms</b>, <b>data structures</b>, <b>computer and network design</b>, and <b>artificial intelligence</b>. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including <b>programming</b>, <b>systems architecture</b>, <b>databases</b>, and <b>software engineering</b>. Additionally, fields like <b>artificial intelligence</b>, <b>machine learning</b>, and <b>data science</b> have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
+
         const captions = fullText.split(' ').map(word => ({ text: word, emotion: "neutral" }));
 
         function displayCaption(captionBox, textArray, index = 0) {
@@ -179,19 +194,32 @@
             addLine();
         }
 
+        function displayEnhancedCaption(captionBox, text) {
+            captionBox.innerHTML = text;
+        }
+
         window.onload = () => {
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
+            displayEnhancedCaption(document.getElementById('captionBox3'), enhancedText);
         };
 
         function showPrevious() {
-            document.getElementById('page1').classList.add('active');
-            document.getElementById('page2').classList.remove('active');
+            const activePage = document.querySelector('.container.active');
+            const prevPage = activePage.previousElementSibling;
+            if (prevPage) {
+                activePage.classList.remove('active');
+                prevPage.classList.add('active');
+            }
         }
 
         function showNext() {
-            document.getElementById('page1').classList.remove('active');
-            document.getElementById('page2').classList.add('active');
+            const activePage = document.querySelector('.container.active');
+            const nextPage = activePage.nextElementSibling;
+            if (nextPage) {
+                activePage.classList.remove('active');
+                nextPage.classList.add('active');
+            }
         }
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -200,6 +228,8 @@
                 document.getElementById('video1').play();
                 document.getElementById('video2').srcObject = stream;
                 document.getElementById('video2').play();
+                document.getElementById('video3').srcObject = stream;
+                document.getElementById('video3').play();
             });
         }
     </script>
