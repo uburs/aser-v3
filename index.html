@@ -22,11 +22,17 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            position: relative;
+            display: flex;
+        }
+        .video-box {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-right: 2px solid #000;
         }
         .caption-box {
-            width: 100%;
-            height: 100%;
+            width: 70%;
             padding: 20px;
             overflow-y: auto;
             font-size: 18px;
@@ -53,44 +59,138 @@
         .caption-text {
             display: inline-block;
             margin-right: 5px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        video {
+            width: 90%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-    <div class="container active">
-        <div class="caption-box" id="captionBox1">
+    <div class="container">
+        <div class="video-box">
+            <video id="video" autoplay muted></video>
+        </div>
+        <div class="caption-box" id="captionBox">
             <!-- Captions will appear here -->
         </div>
     </div>
 
     <script>
-        const captions1 = [
-            { text: "Hello", emotion: "happy" },
-            { text: "everyone!", emotion: "happy" },
-            { text: "I", emotion: "happy" },
-            { text: "am", emotion: "happy" },
-            { text: "excited", emotion: "happy" },
-            { text: "to", emotion: "happy" },
-            { text: "share", emotion: "happy" },
-            { text: "this", emotion: "happy" },
-            { text: "with", emotion: "happy" },
-            { text: "you.", emotion: "happy" },
-            { text: "The", emotion: "neutral" },
-            { text: "results", emotion: "neutral" },
-            { text: "are", emotion: "neutral" },
-            { text: "surprising.", emotion: "neutral" },
-            { text: "We", emotion: "sad" },
-            { text: "should", emotion: "sad" },
-            { text: "be", emotion: "sad" },
-            { text: "cautious", emotion: "sad" },
-            { text: "with", emotion: "sad" },
-            { text: "our", emotion: "sad" },
-            { text: "conclusions.", emotion: "sad" },
-            { text: "Thank", emotion: "happy" },
-            { text: "you", emotion: "happy" },
-            { text: "for", emotion: "happy" },
-            { text: "your", emotion: "happy" },
-            { text: "attention.", emotion: "happy" }
+        const captions = [
+            { text: "Introduction", emotion: "neutral" },
+            { text: "to", emotion: "neutral" },
+            { text: "Computer", emotion: "neutral" },
+            { text: "Science:", emotion: "neutral" },
+            { text: "Computer", emotion: "neutral" },
+            { text: "science", emotion: "neutral" },
+            { text: "is", emotion: "neutral" },
+            { text: "the", emotion: "neutral" },
+            { text: "study", emotion: "neutral" },
+            { text: "of", emotion: "neutral" },
+            { text: "computation,", emotion: "neutral" },
+            { text: "automation,", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "information.", emotion: "neutral" },
+            { text: "It", emotion: "neutral" },
+            { text: "involves", emotion: "neutral" },
+            { text: "the", emotion: "neutral" },
+            { text: "theory", emotion: "neutral" },
+            { text: "of", emotion: "neutral" },
+            { text: "computation,", emotion: "neutral" },
+            { text: "algorithms,", emotion: "neutral" },
+            { text: "data", emotion: "neutral" },
+            { text: "structures,", emotion: "neutral" },
+            { text: "computer", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "network", emotion: "neutral" },
+            { text: "design,", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "artificial", emotion: "neutral" },
+            { text: "intelligence.", emotion: "neutral" },
+            { text: "Understanding", emotion: "neutral" },
+            { text: "these", emotion: "neutral" },
+            { text: "concepts", emotion: "neutral" },
+            { text: "is", emotion: "neutral" },
+            { text: "crucial", emotion: "neutral" },
+            { text: "for", emotion: "neutral" },
+            { text: "developing", emotion: "neutral" },
+            { text: "efficient", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "innovative", emotion: "neutral" },
+            { text: "technological", emotion: "neutral" },
+            { text: "solutions.", emotion: "neutral" },
+            { text: "Computer", emotion: "neutral" },
+            { text: "science", emotion: "neutral" },
+            { text: "spans", emotion: "neutral" },
+            { text: "several", emotion: "neutral" },
+            { text: "core", emotion: "neutral" },
+            { text: "areas", emotion: "neutral" },
+            { text: "including", emotion: "neutral" },
+            { text: "programming,", emotion: "neutral" },
+            { text: "systems", emotion: "neutral" },
+            { text: "architecture,", emotion: "neutral" },
+            { text: "databases,", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "software", emotion: "neutral" },
+            { text: "engineering.", emotion: "neutral" },
+            { text: "Additionally,", emotion: "neutral" },
+            { text: "fields", emotion: "neutral" },
+            { text: "like", emotion: "neutral" },
+            { text: "artificial", emotion: "neutral" },
+            { text: "intelligence,", emotion: "neutral" },
+            { text: "machine", emotion: "neutral" },
+            { text: "learning,", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "data", emotion: "neutral" },
+            { text: "science", emotion: "neutral" },
+            { text: "have", emotion: "neutral" },
+            { text: "grown", emotion: "neutral" },
+            { text: "significantly", emotion: "neutral" },
+            { text: "in", emotion: "neutral" },
+            { text: "recent", emotion: "neutral" },
+            { text: "years.", emotion: "neutral" },
+            { text: "By", emotion: "neutral" },
+            { text: "mastering", emotion: "neutral" },
+            { text: "computer", emotion: "neutral" },
+            { text: "science", emotion: "neutral" },
+            { text: "principles,", emotion: "neutral" },
+            { text: "you", emotion: "neutral" },
+            { text: "can", emotion: "neutral" },
+            { text: "develop", emotion: "neutral" },
+            { text: "software", emotion: "neutral" },
+            { text: "that", emotion: "neutral" },
+            { text: "solves", emotion: "neutral" },
+            { text: "real-world", emotion: "neutral" },
+            { text: "problems,", emotion: "neutral" },
+            { text: "create", emotion: "neutral" },
+            { text: "systems", emotion: "neutral" },
+            { text: "that", emotion: "neutral" },
+            { text: "drive", emotion: "neutral" },
+            { text: "the", emotion: "neutral" },
+            { text: "future", emotion: "neutral" },
+            { text: "of", emotion: "neutral" },
+            { text: "technology,", emotion: "neutral" },
+            { text: "and", emotion: "neutral" },
+            { text: "contribute", emotion: "neutral" },
+            { text: "to", emotion: "neutral" },
+            { text: "advancements", emotion: "neutral" },
+            { text: "in", emotion: "neutral" },
+            { text: "numerous", emotion: "neutral" },
+            { text: "industries.", emotion: "neutral" },
+            // Continue adding more text to reach approximately 400 words
         ];
 
         function displayCaption(captionBox, textArray, index = 0) {
@@ -108,8 +208,15 @@
         }
 
         window.onload = () => {
-            displayCaption(document.getElementById('captionBox1'), captions1);
+            displayCaption(document.getElementById('captionBox'), captions);
         };
+
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                document.getElementById('video').srcObject = stream;
+                document.getElementById('video').play();
+            });
+        }
     </script>
 </body>
 </html>
