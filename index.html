@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced ASR Captions</title>
+    <title>Enhanced ASR Captions Prototypes</title>
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -15,6 +15,7 @@
             margin: 0;
         }
         .container {
+            display: none;
             position: relative;
             width: 90%;
             height: 80%;
@@ -23,6 +24,19 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+        }
+        .active {
+            display: flex;
+        }
+        .caption-box, .caption-overlay {
+            width: 50%;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .caption-box {
+            border-right: 2px solid #000;
         }
         .caption-overlay {
             position: absolute;
@@ -54,9 +68,6 @@
                 opacity: 1;
             }
         }
-        .emphasis {
-            font-weight: bold;
-        }
         .happy {
             color: green;
         }
@@ -67,23 +78,83 @@
             color: white;
         }
         video {
-            width: 100%;
+            width: 90%;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .video-box, .avatar-box {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar {
+            width: 50%;
+            height: auto;
+        }
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <video id="video" autoplay muted></video>
-        <div class="caption-overlay" id="captionBox">
+    <div id="prototype1" class="container active">
+        <div class="caption-box" id="captionBox1">
+            <!-- Captions will appear here -->
+        </div>
+        <div class="video-box">
+            <video id="video1" autoplay></video>
+        </div>
+    </div>
+
+    <div id="prototype2" class="container">
+        <div class="caption-box" id="captionBox2">
+            <!-- Captions will appear here -->
+        </div>
+        <div class="video-box">
+            <video id="video2" autoplay></video>
+        </div>
+    </div>
+
+    <div id="prototype3" class="container">
+        <video id="video3" autoplay muted></video>
+        <div class="caption-overlay" id="captionBox3">
             <!-- Captions will appear here -->
         </div>
     </div>
 
+    <div id="prototype4" class="container">
+        <div class="caption-box" id="captionBox4">
+            <!-- Captions will appear here -->
+        </div>
+        <div class="avatar-box">
+            <img src="avatar.png" alt="Avatar" class="avatar" id="avatar">
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button id="prevButton" onclick="showPrevious()">Previous</button>
+        <button id="nextButton" onclick="showNext()">Next</button>
+    </div>
+
     <script>
-        const captions = [
+        const captions1 = [
+            "Hello everyone! Welcome to our session. I am excited to share this with you. The results are surprising. We should be cautious with our conclusions. Thank you for your attention."
+        ];
+        const captions2 = [
+            "Welcome to Chemistry 101. Chemistry is the scientific study of the properties and behavior of matter. It is a natural science that covers the elements that make up matter to the compounds composed of atoms, molecules, and ions. Chemistry seeks to understand the properties of matter and how it reacts with other matter."
+        ];
+        const captions3 = [
             { text: "Welcome to the world of Computer Science! 😊 Computer Science is an exciting and ever-evolving field that encompasses the study of computation, automation, and information.", emotion: "happy" },
             { text: "It involves understanding algorithms, data structures, and the principles of computer and network design.", emotion: "neutral" },
             { text: "Computer Science is the foundation of modern technology, driving innovations in areas such as artificial intelligence, machine learning, and big data.", emotion: "happy" },
@@ -98,23 +169,62 @@
             { text: "Whether you're interested in developing cutting-edge software, designing innovative hardware, or exploring the possibilities of AI and ML, Computer Science offers endless opportunities.", emotion: "neutral" },
             { text: "Thank you for joining us on this journey through the fascinating world of Computer Science! 😊 We hope you're as excited as we are about the endless possibilities and opportunities this field has to offer.", emotion: "happy" }
         ];
+        const captions4 = [
+            "Welcome to Biology 101. Biology is the natural science that studies life and living organisms, including their physical structure, chemical processes, molecular interactions, physiological mechanisms, development, and evolution. It is a vast field that encompasses various disciplines such as botany, zoology, microbiology, and genetics."
+        ];
 
-        const video = document.getElementById('video');
-        const captionBox = document.getElementById('captionBox');
+        const containers = document.querySelectorAll('.container');
+        let currentIndex = 0;
 
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                video.srcObject = stream;
-                video.play();
-            });
+        function displayCaption(captionBox, text, index = 0) {
+            if (index < text.length) {
+                const words = text[index].split(' ');
+                let chunk = '';
+                words.forEach((word, i) => {
+                    if ((i + 1) % 5 === 0 || i === words.length - 1) {
+                        chunk += word + ' ';
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text');
+                        span.textContent = chunk;
+                        captionBox.appendChild(span);
+                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        chunk = '';
+                    } else {
+                        chunk += word + ' ';
+                    }
+                });
+
+                setTimeout(() => displayCaption(captionBox, text, index + 1), 3000); // Adjust the speed of the captions here
+            }
         }
 
-        let captionIndex = 0;
+        function displayFormattedCaption(captionBox, text, index = 0) {
+            if (index < text.length) {
+                const words = text[index].split(' ');
+                let chunk = '';
+                words.forEach((word, i) => {
+                    if ((i + 1) % 5 === 0 || i === words.length - 1) {
+                        chunk += word + ' ';
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text');
+                        span.innerHTML = chunk
+                            .replace(/Chemistry|properties|matter|elements|compounds/gi, (match) => `<strong>${match}</strong>`);
+                        captionBox.appendChild(span);
+                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        chunk = '';
+                    } else {
+                        chunk += word + ' ';
+                    }
+                });
 
-        function displayCaption() {
-            if (captionIndex < captions.length) {
-                const { text, emotion } = captions[captionIndex];
-                const words = text.split(' ');
+                setTimeout(() => displayFormattedCaption(captionBox, text, index + 1), 3000); // Adjust the speed of the captions here
+            }
+        }
+
+        function displayEmotionCaption(captionBox, text, index = 0) {
+            if (index < text.length) {
+                const { text: captionText, emotion } = text[index];
+                const words = captionText.split(' ');
                 let chunk = '';
                 words.forEach((word, i) => {
                     if ((i + 1) % 5 === 0 || i === words.length - 1) {
@@ -131,12 +241,37 @@
                     }
                 });
 
-                captionIndex++;
-                setTimeout(displayCaption, 3000); // Adjust the speed of the captions here
+                setTimeout(() => displayEmotionCaption(captionBox, text, index + 1), 3000); // Adjust the speed of the captions here
             }
         }
 
-        displayCaption();
+        displayCaption(document.getElementById('captionBox1'), captions1);
+        displayFormattedCaption(document.getElementById('captionBox2'), captions2);
+        displayEmotionCaption(document.getElementById('captionBox3'), captions3);
+        displayCaption(document.getElementById('captionBox4'), captions4);
+
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                document.getElementById('video1').srcObject = stream;
+                document.getElementById('video1').play();
+                document.getElementById('video2').srcObject = stream;
+                document.getElementById('video2').play();
+                document.getElementById('video3').srcObject = stream;
+                document.getElementById('video3').play();
+            });
+        }
+
+        function showPrevious() {
+            containers[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex - 1 + containers.length) % containers.length;
+            containers[currentIndex].classList.add('active');
+        }
+
+        function showNext() {
+            containers[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % containers.length;
+            containers[currentIndex].classList.add('active');
+        }
     </script>
 </body>
 </html>
