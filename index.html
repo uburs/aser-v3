@@ -332,6 +332,17 @@
 
             addLine();
         }
+
+        // Video stream setup
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                document.getElementById('video1').srcObject = stream;
+                document.getElementById('video2').srcObject = stream;
+                document.getElementById('video3').srcObject = stream;
+            }).catch(function(error) {
+                console.error("Error accessing webcam: ", error);
+            });
+        }
     </script>
 </body>
 </html>
