@@ -15,6 +15,7 @@
             margin: 0;
         }
         .container {
+            display: none;
             width: 90%;
             height: 80%;
             border: 2px solid #000;
@@ -22,6 +23,9 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            position: relative;
+        }
+        .container.active {
             display: flex;
         }
         .video-box {
@@ -76,15 +80,57 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .caption-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 18px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div id="page1" class="container active">
         <div class="video-box">
-            <video id="video" autoplay muted></video>
+            <video id="video1" autoplay muted></video>
         </div>
-        <div class="caption-box" id="captionBox">
+        <div class="caption-box" id="captionBox1">
             <!-- Captions will appear here -->
+        </div>
+        <div class="navigation">
+            <button onclick="showNext()">Next</button>
+        </div>
+    </div>
+
+    <div id="page2" class="container">
+        <div class="video-box" style="width: 100%;">
+            <video id="video2" autoplay muted></video>
+            <div class="caption-overlay" id="captionBox2">
+                <!-- Captions will appear here -->
+            </div>
+        </div>
+        <div class="navigation">
+            <button onclick="showPrevious()">Previous</button>
+            <button onclick="showNext()">Next</button>
         </div>
     </div>
 
@@ -208,13 +254,26 @@
         }
 
         window.onload = () => {
-            displayCaption(document.getElementById('captionBox'), captions);
+            displayCaption(document.getElementById('captionBox1'), captions);
+            displayCaption(document.getElementById('captionBox2'), captions);
         };
+
+        function showPrevious() {
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
+        }
+
+        function showNext() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+        }
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                document.getElementById('video').srcObject = stream;
-                document.getElementById('video').play();
+                document.getElementById('video1').srcObject = stream;
+                document.getElementById('video1').play();
+                document.getElementById('video2').srcObject = stream;
+                document.getElementById('video2').play();
             });
         }
     </script>
