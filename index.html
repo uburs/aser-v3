@@ -135,10 +135,8 @@
     </div>
 
     <script>
-        const captions = [
-            { text: "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.", emotion: "neutral" }
-            // Continue adding more text to reach approximately 400 words
-        ];
+        const fullText = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
+        const captions = fullText.split(' ').map(word => ({ text: word, emotion: "neutral" }));
 
         function displayCaption(captionBox, textArray, index = 0) {
             if (index < textArray.length) {
@@ -183,7 +181,7 @@
 
         window.onload = () => {
             displayCaption(document.getElementById('captionBox1'), captions);
-            displayFlowingCaption(document.getElementById('captionBox2'), captions[0].text);
+            displayFlowingCaption(document.getElementById('captionBox2'), fullText);
         };
 
         function showPrevious() {
