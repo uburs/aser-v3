@@ -66,6 +66,9 @@
             opacity: 0;
             animation: fadeIn 1s forwards;
         }
+        .caption-text.bold {
+            font-weight: bold;
+        }
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -152,6 +155,9 @@
         const enhancedText = "Introduction to Computer Science: <b>Computer science</b> is the study of <b>computation</b>, <b>automation</b>, and <b>information</b>. It involves the theory of <b>computation</b>, <b>algorithms</b>, <b>data structures</b>, <b>computer and network design</b>, and <b>artificial intelligence</b>. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including <b>programming</b>, <b>systems architecture</b>, <b>databases</b>, and <b>software engineering</b>. Additionally, fields like <b>artificial intelligence</b>, <b>machine learning</b>, and <b>data science</b> have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
 
         const captions = fullText.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const enhancedCaptions = enhancedText.split(' ').map(word => {
+            return { text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) };
+        });
 
         function displayCaption(captionBox, textArray, index = 0) {
             if (index < textArray.length) {
@@ -194,14 +200,25 @@
             addLine();
         }
 
-        function displayEnhancedCaption(captionBox, text) {
-            captionBox.innerHTML = text;
+        function displayEnhancedCaption(captionBox, textArray, index = 0) {
+            if (index < textArray.length) {
+                setTimeout(() => {
+                    const { text, emotion, bold } = textArray[index];
+                    const span = document.createElement('span');
+                    span.classList.add('caption-text', `emotion-${emotion}`);
+                    if (bold) span.classList.add('bold');
+                    span.textContent = text;
+                    captionBox.appendChild(span);
+                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                    displayEnhancedCaption(captionBox, textArray, index + 1);
+                }, 500); // Adjust the speed of the captions here
+            }
         }
 
         window.onload = () => {
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
-            displayEnhancedCaption(document.getElementById('captionBox3'), enhancedText);
+            displayEnhancedCaption(document.getElementById('captionBox3'), enhancedCaptions);
         };
 
         function showPrevious() {
