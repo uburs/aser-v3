@@ -136,106 +136,7 @@
 
     <script>
         const captions = [
-            { text: "Introduction", emotion: "neutral" },
-            { text: "to", emotion: "neutral" },
-            { text: "Computer", emotion: "neutral" },
-            { text: "Science:", emotion: "neutral" },
-            { text: "Computer", emotion: "neutral" },
-            { text: "science", emotion: "neutral" },
-            { text: "is", emotion: "neutral" },
-            { text: "the", emotion: "neutral" },
-            { text: "study", emotion: "neutral" },
-            { text: "of", emotion: "neutral" },
-            { text: "computation,", emotion: "neutral" },
-            { text: "automation,", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "information.", emotion: "neutral" },
-            { text: "It", emotion: "neutral" },
-            { text: "involves", emotion: "neutral" },
-            { text: "the", emotion: "neutral" },
-            { text: "theory", emotion: "neutral" },
-            { text: "of", emotion: "neutral" },
-            { text: "computation,", emotion: "neutral" },
-            { text: "algorithms,", emotion: "neutral" },
-            { text: "data", emotion: "neutral" },
-            { text: "structures,", emotion: "neutral" },
-            { text: "computer", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "network", emotion: "neutral" },
-            { text: "design,", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "artificial", emotion: "neutral" },
-            { text: "intelligence.", emotion: "neutral" },
-            { text: "Understanding", emotion: "neutral" },
-            { text: "these", emotion: "neutral" },
-            { text: "concepts", emotion: "neutral" },
-            { text: "is", emotion: "neutral" },
-            { text: "crucial", emotion: "neutral" },
-            { text: "for", emotion: "neutral" },
-            { text: "developing", emotion: "neutral" },
-            { text: "efficient", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "innovative", emotion: "neutral" },
-            { text: "technological", emotion: "neutral" },
-            { text: "solutions.", emotion: "neutral" },
-            { text: "Computer", emotion: "neutral" },
-            { text: "science", emotion: "neutral" },
-            { text: "spans", emotion: "neutral" },
-            { text: "several", emotion: "neutral" },
-            { text: "core", emotion: "neutral" },
-            { text: "areas", emotion: "neutral" },
-            { text: "including", emotion: "neutral" },
-            { text: "programming,", emotion: "neutral" },
-            { text: "systems", emotion: "neutral" },
-            { text: "architecture,", emotion: "neutral" },
-            { text: "databases,", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "software", emotion: "neutral" },
-            { text: "engineering.", emotion: "neutral" },
-            { text: "Additionally,", emotion: "neutral" },
-            { text: "fields", emotion: "neutral" },
-            { text: "like", emotion: "neutral" },
-            { text: "artificial", emotion: "neutral" },
-            { text: "intelligence,", emotion: "neutral" },
-            { text: "machine", emotion: "neutral" },
-            { text: "learning,", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "data", emotion: "neutral" },
-            { text: "science", emotion: "neutral" },
-            { text: "have", emotion: "neutral" },
-            { text: "grown", emotion: "neutral" },
-            { text: "significantly", emotion: "neutral" },
-            { text: "in", emotion: "neutral" },
-            { text: "recent", emotion: "neutral" },
-            { text: "years.", emotion: "neutral" },
-            { text: "By", emotion: "neutral" },
-            { text: "mastering", emotion: "neutral" },
-            { text: "computer", emotion: "neutral" },
-            { text: "science", emotion: "neutral" },
-            { text: "principles,", emotion: "neutral" },
-            { text: "you", emotion: "neutral" },
-            { text: "can", emotion: "neutral" },
-            { text: "develop", emotion: "neutral" },
-            { text: "software", emotion: "neutral" },
-            { text: "that", emotion: "neutral" },
-            { text: "solves", emotion: "neutral" },
-            { text: "real-world", emotion: "neutral" },
-            { text: "problems,", emotion: "neutral" },
-            { text: "create", emotion: "neutral" },
-            { text: "systems", emotion: "neutral" },
-            { text: "that", emotion: "neutral" },
-            { text: "drive", emotion: "neutral" },
-            { text: "the", emotion: "neutral" },
-            { text: "future", emotion: "neutral" },
-            { text: "of", emotion: "neutral" },
-            { text: "technology,", emotion: "neutral" },
-            { text: "and", emotion: "neutral" },
-            { text: "contribute", emotion: "neutral" },
-            { text: "to", emotion: "neutral" },
-            { text: "advancements", emotion: "neutral" },
-            { text: "in", emotion: "neutral" },
-            { text: "numerous", emotion: "neutral" },
-            { text: "industries.", emotion: "neutral" },
+            { text: "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.", emotion: "neutral" }
             // Continue adding more text to reach approximately 400 words
         ];
 
@@ -253,9 +154,36 @@
             }
         }
 
+        function displayFlowingCaption(captionBox, text) {
+            const words = text.split(' ');
+            let line = [];
+            let index = 0;
+
+            function addLine() {
+                if (index < words.length) {
+                    line.push(words[index]);
+                    index++;
+                    if (line.length === 7 || index === words.length) {
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text');
+                        span.textContent = line.join(' ');
+                        captionBox.appendChild(span);
+                        captionBox.appendChild(document.createElement('br'));
+                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        line = [];
+                        setTimeout(addLine, 1000); // Adjust the speed of the captions here
+                    } else {
+                        setTimeout(addLine, 0);
+                    }
+                }
+            }
+
+            addLine();
+        }
+
         window.onload = () => {
             displayCaption(document.getElementById('captionBox1'), captions);
-            displayCaption(document.getElementById('captionBox2'), captions);
+            displayFlowingCaption(document.getElementById('captionBox2'), captions[0].text);
         };
 
         function showPrevious() {
@@ -279,3 +207,4 @@
     </script>
 </body>
 </html>
+
