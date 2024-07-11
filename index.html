@@ -109,20 +109,20 @@
 </head>
 <body>
     <div id="prototype1" class="container active">
-        <div class="caption-overlay" id="captionBox1">
+        <div class="caption-box" id="captionBox1">
             <!-- Captions will appear here -->
         </div>
         <div class="video-box">
-            <video id="video1" autoplay muted></video>
+            <video id="video1" autoplay></video>
         </div>
     </div>
 
     <div id="prototype2" class="container">
-        <div class="caption-overlay" id="captionBox2">
+        <div class="caption-box" id="captionBox2">
             <!-- Captions will appear here -->
         </div>
         <div class="video-box">
-            <video id="video2" autoplay muted></video>
+            <video id="video2" autoplay></video>
         </div>
     </div>
 
@@ -143,7 +143,6 @@
     </div>
 
     <div class="navigation">
-        <button id="prevButton" onclick="showPrevious()">Previous</button>
         <button id="nextButton" onclick="showNext()">Next</button>
     </div>
 
@@ -151,17 +150,14 @@
         const captions1 = [
             "Welcome to the world of Computer Science! 😊 Computer Science is an exciting and ever-evolving field that encompasses the study of computation, automation, and information. It involves understanding algorithms, data structures, and the principles of computer and network design. Computer Science is the foundation of modern technology, driving innovations in areas such as artificial intelligence, machine learning, and big data. A strong grasp of programming languages and software development is essential for anyone looking to succeed in this field. Programming allows us to create software that can perform complex tasks, solve problems, and improve efficiency. Data structures, such as arrays, linked lists, and trees, are fundamental concepts that help us organize and store data efficiently. Understanding algorithms is crucial as they provide step-by-step instructions to perform tasks and solve problems. Artificial Intelligence and Machine Learning are particularly fascinating areas within Computer Science. These technologies enable machines to learn from data and make decisions, mimicking human intelligence. AI and ML are being used in a wide range of applications, from self-driving cars to personalized recommendations on streaming services. It's essential to stay updated with the latest trends and advancements in technology. The field of Computer Science is always changing, with new languages, tools, and techniques emerging regularly. By mastering the principles of Computer Science, you can become a part of this dynamic field and contribute to the technological advancements that shape our world. Whether you're interested in developing cutting-edge software, designing innovative hardware, or exploring the possibilities of AI and ML, Computer Science offers endless opportunities. Thank you for joining us on this journey through the fascinating world of Computer Science! 😊 We hope you're as excited as we are about the endless possibilities and opportunities this field has to offer."
         ];
-
         const captions2 = [
-            "Physics is the natural science that studies matter, its motion, and behavior through space and time, and the related entities of energy and force. Physics is one of the most fundamental scientific disciplines, and its main goal is to understand how the universe behaves. The study of physics can be traced back to ancient civilizations, but it became a distinct science during the Renaissance. Key concepts in physics include classical mechanics, electromagnetism, thermodynamics, and quantum mechanics. Classical mechanics deals with the motion of bodies under the influence of forces, while electromagnetism describes how electric and magnetic fields interact with matter. Thermodynamics is the study of heat and temperature and their relation to energy and work. Quantum mechanics, on the other hand, deals with the behavior of particles on an atomic and subatomic level. Physics also intersects with many other scientific fields, such as chemistry, biology, and engineering, making it a central science. The principles of physics are used to understand phenomena as diverse as the structure of atoms and the evolution of galaxies. Advances in physics have led to the development of new technologies that have transformed society, from the invention of the wheel to the development of computers and the internet. Physics research continues to push the boundaries of our understanding of the universe, leading to new discoveries and innovations. As a student of physics, you will develop critical thinking and problem-solving skills, as well as a deep understanding of the natural world. Whether you are interested in theoretical research or practical applications, physics offers a wide range of opportunities to explore and contribute to our knowledge of the universe."
+            "Physics is the fundamental science that seeks to understand the natural laws governing the universe. It covers a wide range of phenomena, from the smallest subatomic particles to the largest galaxies. By studying the principles of physics, we gain insights into how the world works at the most basic level. Physics involves the exploration of concepts such as force, energy, mass, and charge. These concepts help us explain the behavior of matter and the interactions between different objects. The laws of physics are universal, meaning they apply everywhere in the universe. This universality allows physicists to make predictions about how systems will behave under various conditions. Physics is divided into several branches, including classical mechanics, electromagnetism, thermodynamics, and quantum mechanics. Each branch focuses on different aspects of physical phenomena. For example, classical mechanics deals with the motion of objects and the forces acting upon them, while electromagnetism studies the behavior of electric and magnetic fields. Thermodynamics explores the principles governing heat and energy transfer, and quantum mechanics examines the behavior of particles at the atomic and subatomic levels. Advances in physics have led to numerous technological innovations, from the development of electrical power and communication systems to the creation of new materials and medical imaging techniques. The study of physics also plays a crucial role in our understanding of the universe, helping us to answer fundamental questions about the nature of space, time, and matter. As we continue to explore the mysteries of the universe, physics will remain at the forefront of scientific discovery and technological advancement."
         ];
-
         const captions3 = [
-            "Chemistry is the scientific study of the properties and behavior of matter. It is a natural science that covers the elements that make up matter to the compounds composed of atoms, molecules, and ions. Chemistry seeks to understand the properties of matter and how it reacts with other matter. The central science, chemistry connects the physical sciences with the life sciences and applied sciences. Understanding the principles of chemistry is essential for studying and advancing many other fields, including biology, physics, medicine, engineering, and environmental science. The study of chemistry involves various branches, such as organic chemistry, inorganic chemistry, physical chemistry, analytical chemistry, and biochemistry. Organic chemistry focuses on the structure, properties, and reactions of organic compounds, which contain carbon atoms. Inorganic chemistry deals with the properties and behavior of inorganic compounds, which include minerals, metals, and nonmetals. Physical chemistry combines chemistry with physics to study how matter behaves on a molecular and atomic level and how chemical reactions occur. Analytical chemistry involves the analysis of substances to determine their composition and quantity of each kind of molecule present. Biochemistry is the study of chemical processes within and relating to living organisms. The knowledge gained from chemistry research has led to significant advancements in various industries, including pharmaceuticals, agriculture, and manufacturing. Chemists work in laboratories and industries to develop new materials, medicines, and technologies that improve our quality of life. They also play a crucial role in addressing environmental challenges by developing sustainable processes and materials. As a student of chemistry, you will learn to conduct experiments, analyze data, and think critically about complex problems. The skills and knowledge you gain will prepare you for a wide range of careers in science, technology, engineering, and mathematics (STEM) fields."
+            "Chemistry is the scientific study of the properties and behavior of matter. It is a natural science that covers the elements that make up matter to the compounds composed of atoms, molecules, and ions. Chemistry seeks to understand the properties of matter and how it reacts with other matter. This field of science is often called the central science because it connects other sciences to each other, such as biology, physics, geology, and environmental science. The study of chemistry involves understanding the structure and behavior of atoms, the formation and properties of chemical bonds, and the interactions between different substances. Chemists use this knowledge to develop new materials, medicines, and energy sources. For example, chemistry plays a key role in the development of pharmaceuticals, from the discovery of new drugs to the design of safe and effective delivery methods. In addition to its practical applications, chemistry also helps us understand fundamental aspects of the universe. By studying the composition and behavior of matter, chemists can make predictions about how substances will behave under different conditions. This knowledge is essential for fields such as environmental science, where understanding chemical interactions is crucial for addressing issues like pollution and climate change. The study of chemistry is divided into several sub-disciplines, including organic chemistry, inorganic chemistry, physical chemistry, analytical chemistry, and biochemistry. Each of these sub-disciplines focuses on different aspects of chemical behavior and has its own specialized techniques and methods. Whether it's developing new materials, exploring the chemistry of life, or understanding the fundamental principles that govern the behavior of matter, chemistry is a vital and dynamic field that continues to drive scientific and technological progress."
         ];
-
         const captions4 = [
-            "Engineering is the application of scientific principles to design and build machines, structures, and other items, including bridges, tunnels, roads, vehicles, and buildings. It is a broad discipline that encompasses a range of specialized fields, each focusing on particular areas of applied science, technology, and types of application. The main branches of engineering are civil, mechanical, electrical, and chemical engineering. Civil engineering deals with the design and construction of infrastructure such as roads, bridges, and buildings. Mechanical engineering focuses on designing and manufacturing mechanical systems. Electrical engineering involves the study and application of electricity, electronics, and electromagnetism. Chemical engineering combines principles of chemistry, physics, mathematics, and economics to efficiently use, produce, design, transport, and transform energy and materials. Engineers use their knowledge to develop solutions to complex problems and improve existing technologies. They work in various industries, including aerospace, automotive, energy, construction, and information technology. The work of engineers has a significant impact on society, contributing to advancements in healthcare, transportation, communication, and environmental sustainability. As a student of engineering, you will develop analytical and problem-solving skills, as well as a strong foundation in mathematics and science. You will learn to apply theoretical concepts to practical situations and work on projects that require creativity, innovation, and teamwork. Engineering education also emphasizes ethical and professional responsibility, preparing students to consider the social and environmental implications of their work. Whether you are interested in designing cutting-edge technologies, improving infrastructure, or developing sustainable solutions, engineering offers a wide range of opportunities to make a difference in the world. The field of engineering is continually evolving, with new challenges and opportunities emerging as technology advances and societal needs change. By pursuing a career in engineering, you can contribute to shaping the future and improving the quality of life for people around the world."
+            "Engineering is the application of scientific principles to design and build systems, structures, and devices that solve real-world problems. It encompasses a wide range of disciplines, including civil, mechanical, electrical, chemical, and aerospace engineering. Each of these disciplines focuses on different aspects of technology and has its own unique set of skills and knowledge. Civil engineers design and construct infrastructure such as bridges, roads, and buildings. They must consider factors such as safety, durability, and environmental impact in their designs. Mechanical engineers work on the design and manufacturing of mechanical systems, from small components like gears and engines to large systems like power plants and industrial machinery. Electrical engineers focus on the generation, distribution, and utilization of electrical energy. They work on projects ranging from power grids and renewable energy sources to electronic devices and communication systems. Chemical engineers apply principles of chemistry and biology to develop processes for producing chemicals, fuels, and pharmaceuticals. They work on projects such as designing efficient and sustainable chemical plants and developing new materials. Aerospace engineers design and build aircraft, spacecraft, and related systems. They must consider factors such as aerodynamics, propulsion, and materials science in their designs. Engineering is a highly collaborative field that requires strong problem-solving skills, creativity, and a deep understanding of scientific principles. Engineers often work in teams, bringing together experts from different disciplines to tackle complex challenges. The impact of engineering on society is profound, from the development of new technologies and infrastructure to the improvement of quality of life through innovations in healthcare, transportation, and communication. As we face new challenges in the 21st century, such as climate change and sustainable development, engineers will play a crucial role in developing solutions that address these issues and create a better future for all."
         ];
 
         const containers = document.querySelectorAll('.container');
@@ -186,6 +182,29 @@
                 });
 
                 setTimeout(() => displayCaption(captionBox, text, index + 1), 3000); // Adjust the speed of the captions here
+            }
+        }
+
+        function displayFormattedCaption(captionBox, text, index = 0) {
+            if (index < text.length) {
+                const words = text[index].split(' ');
+                let chunk = '';
+                words.forEach((word, i) => {
+                    if ((i + 1) % 5 === 0 || i === words.length - 1) {
+                        chunk += word + ' ';
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text');
+                        span.innerHTML = chunk
+                            .replace(/Chemistry|properties|matter|elements|compounds/gi, (match) => `<strong>${match}</strong>`);
+                        captionBox.appendChild(span);
+                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+                        chunk = '';
+                    } else {
+                        chunk += word + ' ';
+                    }
+                });
+
+                setTimeout(() => displayFormattedCaption(captionBox, text, index + 1), 3000); // Adjust the speed of the captions here
             }
         }
 
@@ -214,8 +233,8 @@
         }
 
         displayCaption(document.getElementById('captionBox1'), captions1);
-        displayCaption(document.getElementById('captionBox2'), captions2);
-        displayEmotionCaption(document.getElementById('captionBox3'), captions3);
+        displayFormattedCaption(document.getElementById('captionBox2'), captions2);
+        displayCaption(document.getElementById('captionBox3'), captions3);
         displayCaption(document.getElementById('captionBox4'), captions4);
 
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -230,11 +249,9 @@
         }
 
         function showPrevious() {
-            if (currentIndex !== 0) {
-                containers[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex - 1 + containers.length) % containers.length;
-                containers[currentIndex].classList.add('active');
-            }
+            containers[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex - 1 + containers.length) % containers.length;
+            containers[currentIndex].classList.add('active');
         }
 
         function showNext() {
@@ -242,7 +259,8 @@
             currentIndex = (currentIndex + 1) % containers.length;
             containers[currentIndex].classList.add('active');
         }
+
+        document.getElementById('nextButton').addEventListener('click', showNext);
     </script>
 </body>
 </html>
-
