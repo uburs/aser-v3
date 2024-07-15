@@ -278,20 +278,6 @@
         }
 
         window.onload = () => {
-            // Randomly shuffle pages
-            const pages = ['page1', 'page2', 'page3', 'page4'];
-            const shuffledPages = pages.sort(() => 0.5 - Math.random());
-
-            const container = document.body;
-            shuffledPages.forEach((pageId, index) => {
-                const page = document.getElementById(pageId);
-                page.classList.remove('active');
-                container.appendChild(page);
-                if (index === 0) {
-                    page.classList.add('active');
-                }
-            });
-
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
             displayEnhancedCaption(document.getElementById('captionBox3'), enhancedCaptions);
@@ -301,7 +287,7 @@
         function showPrevious() {
             const activePage = document.querySelector('.container.active');
             const prevPage = activePage.previousElementSibling;
-            if (prevPage && prevPage.classList.contains('container')) {
+            if (prevPage) {
                 activePage.classList.remove('active');
                 prevPage.classList.add('active');
             }
@@ -310,7 +296,7 @@
         function showNext() {
             const activePage = document.querySelector('.container.active');
             const nextPage = activePage.nextElementSibling;
-            if (nextPage && nextPage.classList.contains('container')) {
+            if (nextPage) {
                 activePage.classList.remove('active');
                 nextPage.classList.add('active');
             }
