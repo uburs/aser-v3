@@ -386,8 +386,7 @@
                 q1: quiz1Response,
                 q2: quiz2Response,
                 q3: quiz3Response,
-                q4: quiz4Response,
-                to_email: 'sundavid93@yahoo.com' // Ensure this is added to your EmailJS template
+                q4: quiz4Response
             };
 
             emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
@@ -442,4 +441,3 @@
     </script>
 </body>
 </html>
-
