@@ -139,12 +139,6 @@
             cursor: pointer;
         }
     </style>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init('YOUR_USER_ID'); // Replace with your EmailJS user ID
-        })();
-    </script>
 </head>
 <body>
     <div id="page1" class="container">
@@ -223,7 +217,7 @@
         </div>
         <div class="navigation">
             <button onclick="showPrevious()">Previous</button>
-            <button onclick="showNext()">Next</button>
+            <button onclick="showNext()">Next"></button>
         </div>
     </div>
 
@@ -346,10 +340,10 @@
             shuffledPages.forEach((pageId, index) => {
                 const page = document.getElementById(pageId);
                 page.classList.remove('active');
+                document.body.appendChild(page);
                 if (index === 0) {
                     page.classList.add('active');
                 }
-                document.body.appendChild(page);
             });
 
             displayCaption(document.getElementById('captionBox1'), captions);
@@ -376,25 +370,37 @@
             }
         }
 
-        function submitResponses() {
+        async function submitResponses() {
             const quiz1Response = document.querySelector('input[name="q1"]:checked') ? document.querySelector('input[name="q1"]:checked').value : "No response";
             const quiz2Response = document.querySelector('input[name="q2"]:checked') ? document.querySelector('input[name="q2"]:checked').value : "No response";
             const quiz3Response = document.querySelector('input[name="q3"]:checked') ? document.querySelector('input[name="q3"]:checked').value : "No response";
             const quiz4Response = document.querySelector('input[name="q4"]:checked') ? document.querySelector('input[name="q4"]:checked').value : "No response";
 
-            const templateParams = {
+            const responses = {
                 q1: quiz1Response,
                 q2: quiz2Response,
                 q3: quiz3Response,
                 q4: quiz4Response
             };
 
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-                .then(function(response) {
-                    alert('Your responses have been submitted successfully!');
-                }, function(error) {
-                    alert('There was an error submitting your responses. Please try again.');
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyK-dH8f7swK_gKCB2GyAgno-W7ul4ZYdpUe_3Uh2ECf26TxBQVqTzyiPQq_TeR7l_7DA/exec', { // Replace with your Web App URL
+                    method: 'POST',
+                    body: JSON.stringify(responses),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 });
+
+                if (response.ok) {
+                    alert('Your responses have been submitted successfully!');
+                } else {
+                    const responseBody = await response.text();
+                    alert(`There was an error submitting your responses. Please try again. Response: ${responseBody}`);
+                }
+            } catch (error) {
+                alert(`There was an error submitting your responses. Please try again. Error: ${error}`);
+            }
         }
 
         function displayFlowingEmotionCaption(captionBox, textArray) {
