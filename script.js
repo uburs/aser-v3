@@ -14,23 +14,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function setUpNavigation() {
-        document.querySelectorAll('.navigation button').forEach(button => {
-            button.addEventListener('click', event => {
-                if (event.target.id.includes('next') && currentPageIndex < pages.length - 1) {
-                    currentPageIndex++;
-                } else if (event.target.id.includes('previous') && currentPageIndex > 0) {
-                    currentPageIndex--;
-                }
-                loadPage(currentPageIndex);
-            });
-        });
+        document.getElementById('next1')?.addEventListener('click', () => navigatePage(1));
+        document.getElementById('previous2')?.addEventListener('click', () => navigatePage(-1));
+        document.getElementById('next2')?.addEventListener('click', () => navigatePage(1));
+        document.getElementById('previous3')?.addEventListener('click', () => navigatePage(-1));
+        document.getElementById('next3')?.addEventListener('click', () => navigatePage(1));
+        document.getElementById('previous4')?.addEventListener('click', () => navigatePage(-1));
+        document.getElementById('submit')?.addEventListener('click', submitResponses);
+    }
+
+    function navigatePage(direction) {
+        currentPageIndex += direction;
+        if (currentPageIndex < 0) currentPageIndex = 0;
+        if (currentPageIndex >= pages.length) currentPageIndex = pages.length - 1;
+        loadPage(currentPageIndex);
     }
 
     function setUpCaptions(index) {
         const captions = [
             textPage1.split(' ').map(word => ({ text: word, emotion: "neutral" })),
             textPage2.split(' ').map(word => ({ text: word, emotion: "neutral" })),
-            textPage3.split(' ').map(word => ({ text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) })),
+            textPage3.split(' ').map(word => {
+                return { text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) };
+            }),
             textPage4.split(' ').map(word => {
                 let emotion = "neutral";
                 if (/😊|😄|🙏/.test(word)) emotion = "happy";
