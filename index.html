@@ -163,7 +163,7 @@
             </form>
         </div>
         <div class="navigation">
-            <button onclick="showNext()">Next</button>
+            <button id="next1">Next</button>
         </div>
     </div>
 
@@ -189,8 +189,8 @@
             </form>
         </div>
         <div class="navigation">
-            <button onclick="showPrevious()">Previous</button>
-            <button onclick="showNext()">Next</button>
+            <button id="previous2">Previous</button>
+            <button id="next2">Next</button>
         </div>
     </div>
 
@@ -216,8 +216,8 @@
             </form>
         </div>
         <div class="navigation">
-            <button onclick="showPrevious()">Previous</button>
-            <button onclick="showNext()">Next</button>
+            <button id="previous3">Previous</button>
+            <button id="next3">Next</button>
         </div>
     </div>
 
@@ -240,8 +240,8 @@
             </form>
         </div>
         <div class="navigation">
-            <button onclick="showPrevious()">Previous</button>
-            <button onclick="submitResponses()">Submit</button>
+            <button id="previous4">Previous</button>
+            <button id="submit">Submit</button>
         </div>
     </div>
 
@@ -346,21 +346,49 @@
 
             showPage(currentPageIndex);
 
-            document.querySelector('.navigation button[onclick="showPrevious()"]').onclick = () => {
-                if (currentPageIndex > 0) {
-                    currentPageIndex--;
-                    showPage(currentPageIndex);
-                }
-            };
-
-            document.querySelector('.navigation button[onclick="showNext()"]').onclick = () => {
+            document.getElementById('next1').onclick = () => {
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
                 }
             };
 
-            document.querySelector('.navigation button[onclick="submitResponses()"]').onclick = submitResponses;
+            document.getElementById('previous2').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('next2').onclick = () => {
+                if (currentPageIndex < pages.length - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('previous3').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('next3').onclick = () => {
+                if (currentPageIndex < pages.length - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('previous4').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('submit').onclick = submitResponses;
 
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
