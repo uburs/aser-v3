@@ -286,42 +286,42 @@
         }
 
         function displayCaptionPage2(captionBox, textArray, index = 0, wordsPerLine = 7) {
-            if (index < textArray.length) {
-                setTimeout(() => {
-                    let line = textArray.slice(index, index + wordsPerLine).map(word => {
-                        const span = document.createElement('span');
-                        span.classList.add('caption-text', `emotion-${word.emotion}`);
-                        span.textContent = word.text;
-                        return span;
-                    });
+    if (index < textArray.length) {
+        setTimeout(() => {
+            let line = textArray.slice(index, index + wordsPerLine).map(word => {
+                const span = document.createElement('span');
+                span.classList.add('caption-text', `emotion-${word.emotion}`);
+                span.textContent = word.text;
+                return span;
+            });
 
-                    line.forEach(span => captionBox.appendChild(span));
-                    captionBox.appendChild(document.createElement('br'));
-                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+            line.forEach(span => captionBox.appendChild(span));
+            captionBox.appendChild(document.createElement('br'));
+            captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
 
-                    displayCaptionPage2(captionBox, textArray, index + wordsPerLine, wordsPerLine);
-                }, 1000); // Adjust the speed of the captions here
-            }
-        }
+            displayCaptionPage2(captionBox, textArray, index + wordsPerLine, wordsPerLine);
+        }, 1000); // Adjust the speed of the captions here
+    }
+}
 
-        function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7) {
-            if (index < textArray.length) {
-                setTimeout(() => {
-                    let line = textArray.slice(index, index + wordsPerLine).map(word => {
-                        const span = document.createElement('span');
-                        span.classList.add('caption-text', `emotion-${word.emotion}`);
-                        span.textContent = word.text;
-                        return span;
-                    });
+function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7) {
+    if (index < textArray.length) {
+        setTimeout(() => {
+            let line = textArray.slice(index, index + wordsPerLine).map(word => {
+                const span = document.createElement('span');
+                span.classList.add('caption-text', `emotion-${word.emotion}`);
+                span.textContent = word.text;
+                return span;
+            });
 
-                    line.forEach(span => captionBox.appendChild(span));
-                    captionBox.appendChild(document.createElement('br'));
-                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+            line.forEach(span => captionBox.appendChild(span));
+            captionBox.appendChild(document.createElement('br'));
+            captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
 
-                    displayCaptionPage4(captionBox, textArray, index + wordsPerLine, wordsPerLine);
-                }, 1000); // Adjust the speed of the captions here
-            }
-        }
+            displayCaptionPage4(captionBox, textArray, index + wordsPerLine, wordsPerLine);
+        }, 1000); // Adjust the speed of the captions here
+    }
+}
 
         window.onload = () => {
             const pages = ['page1', 'page2', 'page3', 'page4'];
