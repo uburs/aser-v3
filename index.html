@@ -141,7 +141,7 @@
     </style>
 </head>
 <body>
-    <div id="page1" class="container">
+    <div id="page1" class="container active">
         <div class="video-box">
             <video id="video1" autoplay muted></video>
         </div>
@@ -245,7 +245,7 @@
         </div>
     </div>
 
-    <scrip>
+    <script>
         const fullText = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
         const enhancedText = "Introduction to Computer Science: <b>Computer science</b> is the study of <b>computation</b>, <b>automation</b>, and <b>information</b>. It involves the theory of <b>computation</b>, <b>algorithms</b>, <b>data structures</b>, <b>computer and network design</b>, and <b>artificial intelligence</b>. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including <b>programming</b>, <b>systems architecture</b>, <b>databases</b>, and <b>software engineering</b>. Additionally, fields like <b>artificial intelligence</b>, <b>machine learning</b>, and <b>data science</b> have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
         const emotionText = "Hello everyone! 😊 Welcome to our session. I am excited 😄 to share this with you. The results are surprising 😲. We should be cautious 😟 with our conclusions. Thank you for your attention. 🙏";
@@ -396,48 +396,45 @@
             displayFlowingEmotionCaption(document.getElementById('captionBox4'), emotionCaptions);
         };
 
-        
-    async function submitResponses() {
-        const quiz1Response = document.querySelector('input[name="q1"]:checked') ? document.querySelector('input[name="q1"]:checked').value : "No response";
-        const quiz2Response = document.querySelector('input[name="q2"]:checked') ? document.querySelector('input[name="q2"]:checked').value : "No response";
-        const quiz3Response = document.querySelector('input[name="q3"]:checked') ? document.querySelector('input[name="q3"]:checked').value : "No response";
-        const quiz4Response = document.querySelector('input[name="q4"]:checked') ? document.querySelector('input[name="q4"]:checked').value : "No response";
-        const email = 'sundavid7740@gmail.com'; // Or get the email from a form field
+        async function submitResponses() {
+            const quiz1Response = document.querySelector('input[name="q1"]:checked') ? document.querySelector('input[name="q1"]:checked').value : "No response";
+            const quiz2Response = document.querySelector('input[name="q2"]:checked') ? document.querySelector('input[name="q2"]:checked').value : "No response";
+            const quiz3Response = document.querySelector('input[name="q3"]:checked') ? document.querySelector('input[name="q3"]:checked').value : "No response";
+            const quiz4Response = document.querySelector('input[name="q4"]:checked') ? document.querySelector('input[name="q4"]:checked').value : "No response";
+            const email = 'sundavid7740@gmail.com'; // Or get the email from a form field
 
-        const responses = {
-            email: email,
-            q1: quiz1Response,
-            q2: quiz2Response,
-            q3: quiz3Response,
-            q4: quiz4Response
-        };
+            const responses = {
+                email: email,
+                q1: quiz1Response,
+                q2: quiz2Response,
+                q3: quiz3Response,
+                q4: quiz4Response
+            };
 
-        try {
-            const response = await fetch('submit_responses.php', {
-                method: 'POST',
-                body: JSON.stringify(responses),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            try {
+                const response = await fetch('submit_responses.php', {
+                    method: 'POST',
+                    body: JSON.stringify(responses),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-            if (response.ok) {
-                const result = await response.json();
-                if (result.status === 'success') {
-                    alert(result.message);
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        alert(result.message);
+                    } else {
+                        alert(`There was an error submitting your responses. Please try again. Error: ${result.message}`);
+                    }
                 } else {
-                    alert(`There was an error submitting your responses. Please try again. Error: ${result.message}`);
+                    const responseBody = await response.text();
+                    alert(`There was an error submitting your responses. Please try again. Response: ${responseBody}`);
                 }
-            } else {
-                const responseBody = await response.text();
-                alert(`There was an error submitting your responses. Please try again. Response: ${responseBody}`);
+            } catch (error) {
+                alert(`There was an error submitting your responses. Please try again. Error: ${error.message}`);
             }
-        } catch (error) {
-            alert(`There was an error submitting your responses. Please try again. Error: ${error.message}`);
         }
-    }
-
-
 
         function displayFlowingEmotionCaption(captionBox, textArray) {
             let index = 0;
