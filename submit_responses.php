@@ -20,15 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Execute cURL request and get the response
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
 
     // Close cURL session
     curl_close($ch);
 
     // Check the response status
-    if ($httpCode == 200) {
+    if ($httpCode == 200 && $response) {
         echo json_encode(['status' => 'success', 'message' => 'Your responses have been submitted successfully!']);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'There was an error submitting your responses. Please try again.']);
+        $errorMessage = 'There was an error submitting your responses. Please try again.';
+        if ($curlError) {
+            $errorMessage .= ' cURL error: ' . $curlError;
+        } else {
+            $errorMessage .= ' HTTP status code: ' . $httpCode . '. Response: ' . $response;
+        }
+        echo json_encode(['status' => 'error', 'message' => $errorMessage]);
     }
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
