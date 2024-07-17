@@ -250,30 +250,38 @@
         
         const textPage2 = "Introduction to Engineering: Engineering is the application of scientific principles to design, build, and analyze objects and systems. It involves various disciplines such as mechanical, civil, electrical, and chemical engineering, each focusing on different aspects of technology and design. Mechanical engineering deals with the design and manufacturing of physical systems, while civil engineering focuses on the construction of infrastructure such as buildings and bridges. Electrical engineering encompasses the study of electronics, electromagnetism, and circuit design. Chemical engineering involves the transformation of raw materials into useful products through chemical processes. Understanding engineering principles allows for the creation of innovative solutions to complex problems, improves efficiency, and drives technological advancements across various industries. Engineers play a critical role in shaping the modern world by developing new technologies, enhancing existing systems, and ensuring sustainable development. As the demand for technological innovation grows, the field of engineering continues to evolve, incorporating cutting-edge research and advancements to address the challenges of the future.";
         
-        const textPage3 = "Introduction to Biology: Biology is the scientific study of life and living organisms. It encompasses a wide range of fields, including genetics, microbiology, ecology, and physiology. Biologists explore the structure, function, growth, origin, evolution, and distribution of living organisms. Genetics focuses on the heredity and variation of organisms, while microbiology studies microscopic organisms such as bacteria, viruses, and fungi. Ecology examines the interactions of organisms with their environment, and physiology explores the functions and mechanisms within living systems. Modern biology is increasingly interdisciplinary, combining principles from chemistry, physics, and mathematics to understand complex biological systems. Recent advancements in biotechnology and genomics have revolutionized the field, leading to significant breakthroughs in medicine, agriculture, and environmental conservation. Understanding biology is essential for addressing global challenges such as disease outbreaks, environmental degradation, and food security. By studying biology, scientists can develop new treatments for diseases, enhance crop yields, and protect endangered species. As our knowledge of biological processes expands, biology will continue to play a crucial role in improving human health and preserving the natural world.";
+        const textPage3 = "Introduction to Biology: Biology is the scientific study of life and living organisms. It encompasses a wide range of fields, including <b>genetics</b>, <b>microbiology</b>, <b>ecology</b>, and <b>physiology</b>. Biologists explore the structure, function, growth, origin, evolution, and distribution of living organisms. <b>Genetics</b> focuses on the heredity and variation of organisms, while <b>microbiology</b> studies microscopic organisms such as bacteria, viruses, and fungi. <b>Ecology</b> examines the interactions of organisms with their environment, and <b>physiology</b> explores the functions and mechanisms within living systems. Modern biology is increasingly interdisciplinary, combining principles from chemistry, physics, and mathematics to understand complex biological systems. Recent advancements in <b>biotechnology</b> and <b>genomics</b> have revolutionized the field, leading to significant breakthroughs in medicine, agriculture, and environmental conservation. Understanding biology is essential for addressing global challenges such as disease outbreaks, environmental degradation, and food security. By studying biology, scientists can develop new treatments for diseases, enhance crop yields, and protect endangered species. As our knowledge of biological processes expands, biology will continue to play a crucial role in improving human health and preserving the natural world.";
         
         const textPage4 = "Introduction to Chemistry: Chemistry is the branch of science that studies the composition, structure, properties, and changes of matter. It involves understanding how substances interact, combine, and transform to form new substances. Chemistry is divided into several sub-disciplines, including organic chemistry, inorganic chemistry, physical chemistry, analytical chemistry, and biochemistry. Organic chemistry focuses on the study of carbon-containing compounds, while inorganic chemistry deals with inorganic compounds. Physical chemistry combines principles of physics and chemistry to study the physical properties of molecules, the forces that act upon them, and their interactions. Analytical chemistry involves the analysis of material samples to understand their chemical composition and structure. Biochemistry explores the chemical processes within and related to living organisms. Chemistry plays a vital role in various industries, including pharmaceuticals, agriculture, environmental science, and materials engineering. Recent advancements in chemistry have led to the development of new materials, sustainable energy solutions, and improved analytical techniques. Understanding chemistry is crucial for developing new drugs, creating innovative materials, and addressing environmental issues. As our knowledge of chemical processes deepens, chemistry will continue to drive scientific and technological progress, contributing to a better understanding of the natural world and the development of solutions to global challenges. 😊 Chemistry is fascinating 😄 and has a profound impact on our daily lives. Let's explore its wonders together! 🙏";
         
         const captionsPage1 = textPage1.split(' ').map(word => ({ text: word, emotion: "neutral" }));
         const captionsPage2 = textPage2.split(' ').map(word => ({ text: word, emotion: "neutral" }));
-        const captionsPage3 = textPage3.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const captionsPage3 = textPage3.split(' ').map(word => {
+            return { text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) };
+        });
         const captionsPage4 = textPage4.split(' ').map(word => {
             let emotion = "neutral";
             if (/😊|😄|🙏/.test(word)) emotion = "happy";
             return { text: word, emotion };
         });
 
-        function displayCaption(captionBox, textArray, index = 0) {
+        function displayCaption(captionBox, textArray, index = 0, wordsPerLine = 1) {
             if (index < textArray.length) {
                 setTimeout(() => {
-                    const { text, emotion } = textArray[index];
-                    const span = document.createElement('span');
-                    span.classList.add('caption-text', `emotion-${emotion}`);
-                    span.textContent = text;
-                    captionBox.appendChild(span);
+                    let line = textArray.slice(index, index + wordsPerLine).map(word => {
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text', `emotion-${word.emotion}`);
+                        if (word.bold) span.classList.add('bold');
+                        span.textContent = word.text;
+                        return span;
+                    });
+
+                    line.forEach(span => captionBox.appendChild(span));
+                    captionBox.appendChild(document.createElement('br'));
                     captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
-                    displayCaption(captionBox, textArray, index + 1);
-                }, 100); // Adjust the speed of the captions here
+
+                    displayCaption(captionBox, textArray, index + wordsPerLine, wordsPerLine);
+                }, 500); // Adjust the speed of the captions here
             }
         }
 
@@ -294,7 +302,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
-                    if (currentPageIndex === 1) displayCaption(document.getElementById('captionBox2'), captionsPage2);
+                    if (currentPageIndex === 1) displayCaption(document.getElementById('captionBox2'), captionsPage2, 0, 7);
                 }
             };
 
@@ -324,7 +332,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
-                    if (currentPageIndex === 3) displayCaption(document.getElementById('captionBox4'), captionsPage4);
+                    if (currentPageIndex === 3) displayCaption(document.getElementById('captionBox4'), captionsPage4, 0, 7);
                 }
             };
 
@@ -378,6 +386,17 @@
             } catch (error) {
                 alert(`There was an error submitting your responses. Please try again. Error: ${error.message}`);
             }
+        }
+
+        // Video stream setup
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                document.getElementById('video1').srcObject = stream;
+                document.getElementById('video2').srcObject = stream;
+                document.getElementById('video3').srcObject = stream;
+            }).catch(function(error) {
+                console.error("Error accessing webcam: ", error);
+            });
         }
     </script>
 </body>
