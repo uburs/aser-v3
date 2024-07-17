@@ -317,7 +317,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
-                    if (currentPageIndex === 2) displayCaption(document.getElementById('captionBox3'), captionsPage3, 0, 7);
+                    if (currentPageIndex === 2) displayCaption(document.getElementById('captionBox3'), captionsPage3);
                 }
             };
 
@@ -345,7 +345,7 @@
 
             document.getElementById('submit').onclick = submitResponses;
 
-            displayCaption(document.getElementById('captionBox1'), captionsPage1, 0, 7);
+            displayCaption(document.getElementById('captionBox1'), captionsPage1);
         };
 
         async function submitResponses() {
