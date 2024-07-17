@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
 
     // Execute cURL request and get the response
     $response = curl_exec($ch);
@@ -41,3 +42,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
 }
 ?>
+
