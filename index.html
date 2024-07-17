@@ -265,7 +265,7 @@
             return { text: word, emotion };
         });
 
-        function displayCaption(captionBox, textArray, index = 0, wordsPerLine = 1) {
+        function displayCaption(captionBox, textArray, index = 0, wordsPerLine = 7) {
             if (index < textArray.length) {
                 setTimeout(() => {
                     let line = textArray.slice(index, index + wordsPerLine).map(word => {
@@ -281,7 +281,7 @@
                     captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
 
                     displayCaption(captionBox, textArray, index + wordsPerLine, wordsPerLine);
-                }, 500); // Adjust the speed of the captions here
+                }, 1000); // Adjust the speed of the captions here
             }
         }
 
@@ -317,7 +317,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
-                    if (currentPageIndex === 2) displayCaption(document.getElementById('captionBox3'), captionsPage3);
+                    if (currentPageIndex === 2) displayCaption(document.getElementById('captionBox3'), captionsPage3, 0, 7);
                 }
             };
 
@@ -345,7 +345,7 @@
 
             document.getElementById('submit').onclick = submitResponses;
 
-            displayCaption(document.getElementById('captionBox1'), captionsPage1);
+            displayCaption(document.getElementById('captionBox1'), captionsPage1, 0, 7);
         };
 
         async function submitResponses() {
@@ -401,3 +401,4 @@
     </script>
 </body>
 </html>
+
