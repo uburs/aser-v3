@@ -288,7 +288,7 @@
         function displayCaptionPage2(captionBox, textArray, index = 0, wordsPerLine = 7) {
     if (index < textArray.length) {
         setTimeout(() => {
-            let line = textArray.slice(index, index + wordsPerLine).join(' ');
+            let line = textArray.slice(index, index + wordsPerLine).map(word => word.text).join(' ');
             const span = document.createElement('span');
             span.classList.add('caption-text');
             span.textContent = line;
@@ -303,10 +303,11 @@
 }
 
 
+
 function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7) {
     if (index < textArray.length) {
         setTimeout(() => {
-            let line = textArray.slice(index, index + wordsPerLine).join(' ');
+            let line = textArray.slice(index, index + wordsPerLine).map(word => word.text).join(' ');
             const span = document.createElement('span');
             span.classList.add('caption-text');
             span.textContent = line;
@@ -319,6 +320,7 @@ function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7)
         }, 1000); // Adjust the speed of the captions here
     }
 }
+
 
 
         window.onload = () => {
