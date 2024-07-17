@@ -377,7 +377,6 @@
             const quiz4Response = document.querySelector('input[name="q4"]:checked') ? document.querySelector('input[name="q4"]:checked').value : "No response";
 
             const responses = {
-                email: "sundavid7740@gmail.com",
                 q1: quiz1Response,
                 q2: quiz2Response,
                 q3: quiz3Response,
@@ -385,7 +384,7 @@
             };
 
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbyH0AE8tjLN_UnccK4rfx2E6NQHBPgASzUDziy1Z0uBuHEa4ou-GWKmDJHBoQfmUlQWCg/exec', { // Replace with your Web App URL
+                const response = await fetch('submit_responses.php', {
                     method: 'POST',
                     body: JSON.stringify(responses),
                     headers: {
@@ -394,12 +393,8 @@
                 });
 
                 if (response.ok) {
-                    const responseBody = await response.json();
-                    if (responseBody.status === 'success') {
-                        alert('Your responses have been submitted successfully!');
-                    } else {
-                        alert(`There was an error submitting your responses. Please try again. Error: ${responseBody.message}`);
-                    }
+                    const result = await response.json();
+                    alert(result.message);
                 } else {
                     const responseBody = await response.text();
                     alert(`There was an error submitting your responses. Please try again. Response: ${responseBody}`);
