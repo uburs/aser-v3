@@ -285,6 +285,44 @@
             }
         }
 
+        function displayCaptionPage2(captionBox, textArray, index = 0, wordsPerLine = 7) {
+            if (index < textArray.length) {
+                setTimeout(() => {
+                    let line = textArray.slice(index, index + wordsPerLine).map(word => {
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text', `emotion-${word.emotion}`);
+                        span.textContent = word.text;
+                        return span;
+                    });
+
+                    line.forEach(span => captionBox.appendChild(span));
+                    captionBox.appendChild(document.createElement('br'));
+                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+
+                    displayCaptionPage2(captionBox, textArray, index + wordsPerLine, wordsPerLine);
+                }, 1000); // Adjust the speed of the captions here
+            }
+        }
+
+        function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7) {
+            if (index < textArray.length) {
+                setTimeout(() => {
+                    let line = textArray.slice(index, index + wordsPerLine).map(word => {
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text', `emotion-${word.emotion}`);
+                        span.textContent = word.text;
+                        return span;
+                    });
+
+                    line.forEach(span => captionBox.appendChild(span));
+                    captionBox.appendChild(document.createElement('br'));
+                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+
+                    displayCaptionPage4(captionBox, textArray, index + wordsPerLine, wordsPerLine);
+                }, 1000); // Adjust the speed of the captions here
+            }
+        }
+
         window.onload = () => {
             const pages = ['page1', 'page2', 'page3', 'page4'];
             let currentPageIndex = 0;
@@ -302,7 +340,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
-                    if (currentPageIndex === 1) displayCaption(document.getElementById('captionBox2'), captionsPage2, 0, 7);
+                    if (currentPageIndex === 1) displayCaptionPage2(document.getElementById('captionBox2'), captionsPage2, 0, 7);
                 }
             };
 
@@ -332,7 +370,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
-                    if (currentPageIndex === 3) displayCaption(document.getElementById('captionBox4'), captionsPage4, 0, 7);
+                    if (currentPageIndex === 3) displayCaptionPage4(document.getElementById('captionBox4'), captionsPage4, 0, 7);
                 }
             };
 
