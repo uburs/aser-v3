@@ -217,7 +217,7 @@
         </div>
         <div class="navigation">
             <button onclick="showPrevious()">Previous</button>
-            <button onclick="showNext()">Next"></button>
+            <button onclick="showNext()">Next</button>
         </div>
     </div>
 
@@ -335,16 +335,32 @@
 
         window.onload = () => {
             const pages = ['page1', 'page2', 'page3', 'page4'];
-            const shuffledPages = pages.sort(() => 0.5 - Math.random());
+            let currentPageIndex = 0;
 
-            shuffledPages.forEach((pageId, index) => {
-                const page = document.getElementById(pageId);
-                page.classList.remove('active');
-                document.body.appendChild(page);
-                if (index === 0) {
-                    page.classList.add('active');
+            function showPage(index) {
+                pages.forEach((pageId, i) => {
+                    const page = document.getElementById(pageId);
+                    page.classList.toggle('active', i === index);
+                });
+            }
+
+            showPage(currentPageIndex);
+
+            document.querySelector('.navigation button[onclick="showPrevious()"]').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
                 }
-            });
+            };
+
+            document.querySelector('.navigation button[onclick="showNext()"]').onclick = () => {
+                if (currentPageIndex < pages.length - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.querySelector('.navigation button[onclick="submitResponses()"]').onclick = submitResponses;
 
             displayCaption(document.getElementById('captionBox1'), captions);
             displayFlowingCaption(document.getElementById('captionBox2'), fullText);
@@ -352,31 +368,15 @@
             displayFlowingEmotionCaption(document.getElementById('captionBox4'), emotionCaptions);
         };
 
-        function showPrevious() {
-            const activePage = document.querySelector('.container.active');
-            const prevPage = activePage.previousElementSibling;
-            if (prevPage && prevPage.classList.contains('container')) {
-                activePage.classList.remove('active');
-                prevPage.classList.add('active');
-            }
-        }
-
-        function showNext() {
-            const activePage = document.querySelector('.container.active');
-            const nextPage = activePage.nextElementSibling;
-            if (nextPage && nextPage.classList.contains('container')) {
-                activePage.classList.remove('active');
-                nextPage.classList.add('active');
-            }
-        }
-
         async function submitResponses() {
             const quiz1Response = document.querySelector('input[name="q1"]:checked') ? document.querySelector('input[name="q1"]:checked').value : "No response";
             const quiz2Response = document.querySelector('input[name="q2"]:checked') ? document.querySelector('input[name="q2"]:checked').value : "No response";
             const quiz3Response = document.querySelector('input[name="q3"]:checked') ? document.querySelector('input[name="q3"]:checked').value : "No response";
             const quiz4Response = document.querySelector('input[name="q4"]:checked') ? document.querySelector('input[name="q4"]:checked').value : "No response";
+            const email = 'sundavid7740@gmail.com'; // Or get the email from a form field
 
             const responses = {
+                email: email,
                 q1: quiz1Response,
                 q2: quiz2Response,
                 q3: quiz3Response,
