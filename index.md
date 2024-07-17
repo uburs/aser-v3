@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion-Enhanced Captions</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: none;
+            width: 90%;
+            height: 80%;
+            border: 2px solid #000;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .container.active {
+            display: flex;
+        }
+        .video-box {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-right: 2px solid #000;
+        }
+        .caption-box {
+            width: 70%;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 18px;
+            line-height: 1.5;
+            background: #fff;
+        }
+        .emotion-happy {
+            color: green;
+        }
+        .emotion-sad {
+            color: blue;
+        }
+        .emotion-angry {
+            color: red;
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .caption-text {
+            display: inline-block;
+            margin-right: 5px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        .caption-text.bold {
+            font-weight: bold;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        video {
+            width: 90%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .caption-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 18px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .emotion-detection-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: hidden;
+            padding: 20px;
+            text-align: center;
+            color: black;
+            font-size: 18px;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+        }
+        .emotion-text {
+            display: inline-block;
+            margin-right: 5px;
+            animation: moveUp 10s linear infinite;
+        }
+        @keyframes moveUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(-100%);
+            }
+        }
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="page1" class="container active">
+        <div class="video-box">
+            <video id="video1" autoplay muted></video>
+        </div>
+        <div class="caption-box" id="captionBox1">
+            <!-- Captions will appear here -->
+        </div>
+        <div id="quiz1" class="quiz-container">
+            <h3>Quiz: What is computer science?</h3>
+            <form id="quizForm1">
+                <label>
+                    <input type="radio" name="q1" value="The study of languages"> The study of languages
+                </label><br>
+                <label>
+                    <input type="radio" name="q1" value="The study of computation, automation, and information"> The study of computation, automation, and information
+                </label><br>
+                <label>
+                    <input type="radio" name="q1" value="The study of biology"> The study of biology
+                </label><br>
+            </form>
+        </div>
+        <div class="navigation">
+            <button id="next1">Next</button>
+        </div>
+    </div>
+
+    <div id="page2" class="container">
+        <div class="video-box" style="width: 100%;">
+            <video id="video2" autoplay muted></video>
+            <div class="caption-overlay" id="captionBox2">
+                <!-- Captions will appear here -->
+            </div>
+        </div>
+        <div id="quiz2" class="quiz-container">
+            <h3>Quiz: Which area does engineering cover?</h3>
+            <form id="quizForm2">
+                <label>
+                    <input type="radio" name="q2" value="Cooking"> Cooking
+                </label><br>
+                <label>
+                    <input type="radio" name="q2" value="Building, design, and technology"> Building, design, and technology
+                </label><br>
+                <label>
+                    <input type="radio" name="q2" value="History"> History
+                </label><br>
+            </form>
+        </div>
+        <div class="navigation">
+            <button id="previous2">Previous</button>
+            <button id="next2">Next</button>
+        </div>
+    </div>
+
+    <div id="page3" class="container">
+        <div class="video-box">
+            <video id="video3" autoplay muted></video>
+        </div>
+        <div class="caption-box" id="captionBox3">
+            <!-- Captions will appear here -->
+        </div>
+        <div id="quiz3" class="quiz-container">
+            <h3>Quiz: What are the recent growth areas in biology?</h3>
+            <form id="quizForm3">
+                <label>
+                    <input type="radio" name="q3" value="Artificial intelligence, machine learning, and data science"> Artificial intelligence, machine learning, and data science
+                </label><br>
+                <label>
+                    <input type="radio" name="q3" value="Genomics, biotechnology, and ecology"> Genomics, biotechnology, and ecology
+                </label><br>
+                <label>
+                    <input type="radio" name="q3" value="Carpentry"> Carpentry
+                </label><br>
+            </form>
+        </div>
+        <div class="navigation">
+            <button id="previous3">Previous</button>
+            <button id="next3">Next</button>
+        </div>
+    </div>
+
+    <div id="page4" class="container">
+        <div class="emotion-detection-overlay" id="captionBox4">
+            <!-- Captions will appear here -->
+        </div>
+        <div id="quiz4" class="quiz-container">
+            <h3>Quiz: Why is understanding chemistry concepts crucial?</h3>
+            <form id="quizForm4">
+                <label>
+                    <input type="radio" name="q4" value="For developing efficient and innovative technological solutions"> For developing efficient and innovative technological solutions
+                </label><br>
+                <label>
+                    <input type="radio" name="q4" value="For gardening"> For gardening
+                </label><br>
+                <label>
+                    <input type="radio" name="q4" value="For cooking recipes"> For cooking recipes
+                </label><br>
+            </form>
+        </div>
+        <div class="navigation">
+            <button id="previous4">Previous</button>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const textPage1 = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
+        
+        const textPage2 = "Introduction to Engineering: Engineering is the application of scientific principles to design, build, and analyze objects and systems. It involves various disciplines such as mechanical, civil, electrical, and chemical engineering, each focusing on different aspects of technology and design. Mechanical engineering deals with the design and manufacturing of physical systems, while civil engineering focuses on the construction of infrastructure such as buildings and bridges. Electrical engineering encompasses the study of electronics, electromagnetism, and circuit design. Chemical engineering involves the transformation of raw materials into useful products through chemical processes. Understanding engineering principles allows for the creation of innovative solutions to complex problems, improves efficiency, and drives technological advancements across various industries. Engineers play a critical role in shaping the modern world by developing new technologies, enhancing existing systems, and ensuring sustainable development. As the demand for technological innovation grows, the field of engineering continues to evolve, incorporating cutting-edge research and advancements to address the challenges of the future.";
+        
+        const textPage3 = "Introduction to Biology: Biology is the scientific study of life and living organisms. It encompasses a wide range of fields, including <b>genetics</b>, <b>microbiology</b>, <b>ecology</b>, and <b>physiology</b>. Biologists explore the structure, function, growth, origin, evolution, and distribution of living organisms. <b>Genetics</b> focuses on the heredity and variation of organisms, while <b>microbiology</b> studies microscopic organisms such as bacteria, viruses, and fungi. <b>Ecology</b> examines the interactions of organisms with their environment, and <b>physiology</b> explores the functions and mechanisms within living systems. Modern biology is increasingly interdisciplinary, combining principles from chemistry, physics, and mathematics to understand complex biological systems. Recent advancements in <b>biotechnology</b> and <b>genomics</b> have revolutionized the field, leading to significant breakthroughs in medicine, agriculture, and environmental conservation. Understanding biology is essential for addressing global challenges such as disease outbreaks, environmental degradation, and food security. By studying biology, scientists can develop new treatments for diseases, enhance crop yields, and protect endangered species. As our knowledge of biological processes expands, biology will continue to play a crucial role in improving human health and preserving the natural world.";
+        
+        const textPage4 = "Introduction to Chemistry: Chemistry is the branch of science that studies the composition, structure, properties, and changes of matter. It involves understanding how substances interact, combine, and transform to form new substances. Chemistry is divided into several sub-disciplines, including organic chemistry, inorganic chemistry, physical chemistry, analytical chemistry, and biochemistry. Organic chemistry focuses on the study of carbon-containing compounds, while inorganic chemistry deals with inorganic compounds. Physical chemistry combines principles of physics and chemistry to study the physical properties of molecules, the forces that act upon them, and their interactions. Analytical chemistry involves the analysis of material samples to understand their chemical composition and structure. Biochemistry explores the chemical processes within and related to living organisms. Chemistry plays a vital role in various industries, including pharmaceuticals, agriculture, environmental science, and materials engineering. Recent advancements in chemistry have led to the development of new materials, sustainable energy solutions, and improved analytical techniques. Understanding chemistry is crucial for developing new drugs, creating innovative materials, and addressing environmental issues. As our knowledge of chemical processes deepens, chemistry will continue to drive scientific and technological progress, contributing to a better understanding of the natural world and the development of solutions to global challenges. 😊 Chemistry is fascinating 😄 and has a profound impact on our daily lives. Let's explore its wonders together! 🙏";
+        
+        const captionsPage1 = textPage1.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const captionsPage2 = textPage2.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const captionsPage3 = textPage3.split(' ').map(word => {
+            return { text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) };
+        });
+        const captionsPage4 = textPage4.split(' ').map(word => {
+            let emotion = "neutral";
+            if (/😊|😄|🙏/.test(word)) emotion = "happy";
+            return { text: word, emotion };
+        });
+
+        function displayCaption(captionBox, textArray, index = 0, wordsPerLine = 7) {
+            if (index < textArray.length) {
+                setTimeout(() => {
+                    let line = textArray.slice(index, index + wordsPerLine).map(word => {
+                        const span = document.createElement('span');
+                        span.classList.add('caption-text', `emotion-${word.emotion}`);
+                        if (word.bold) span.classList.add('bold');
+                        span.textContent = word.text;
+                        return span;
+                    });
+
+                    line.forEach(span => captionBox.appendChild(span));
+                    captionBox.appendChild(document.createElement('br'));
+                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
+
+                    displayCaption(captionBox, textArray, index + wordsPerLine, wordsPerLine);
+                }, 1000); // Adjust the speed of the captions here
+            }
+        }
+
+        window.onload = () => {
+            const pages = ['page1', 'page2', 'page3', 'page4'];
+            let currentPageIndex = 0;
+
+            function showPage(index) {
+                pages.forEach((pageId, i) => {
+                    const page = document.getElementById(pageId);
+                    page.classList.toggle('active', i === index);
+                });
+            }
+
+            showPage(currentPageIndex);
+
+            document.getElementById('next1').onclick = () => {
+                if (currentPageIndex < pages.length - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                    if (currentPageIndex === 1) displayCaption(document.getElementById('captionBox2'), captionsPage2, 0, 7);
+                }
+            };
+
+            document.getElementById('previous2').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('next2').onclick = () => {
+                if (currentPageIndex < pages.length - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                    if (currentPageIndex === 2) displayCaption(document.getElementById('captionBox3'), captionsPage3, 0, 7);
+                }
+            };
+
+            document.getElementById('previous3').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('next3').onclick = () => {
+                if (currentPageIndex < pages.length - 1) {
+                    currentPageIndex++;
+                    showPage(currentPageIndex);
+                    if (currentPageIndex === 3) displayCaption(document.getElementById('captionBox4'), captionsPage4, 0, 7);
+                }
+            };
+
+            document.getElementById('previous4').onclick = () => {
+                if (currentPageIndex > 0) {
+                    currentPageIndex--;
+                    showPage(currentPageIndex);
+                }
+            };
+
+            document.getElementById('submit').onclick = submitResponses;
+
+            displayCaption(document.getElementById('captionBox1'), captionsPage1, 0, 7);
+        };
+
+        async function submitResponses() {
+            const quiz1Response = document.querySelector('input[name="q1"]:checked') ? document.querySelector('input[name="q1"]:checked').value : "No response";
+            const quiz2Response = document.querySelector('input[name="q2"]:checked') ? document.querySelector('input[name="q2"]:checked').value : "No response";
+            const quiz3Response = document.querySelector('input[name="q3"]:checked') ? document.querySelector('input[name="q3"]:checked').value : "No response";
+            const quiz4Response = document.querySelector('input[name="q4"]:checked') ? document.querySelector('input[name="q4"]:checked').value : "No response";
+            const email = 'sundavid7740@gmail.com'; // Or get the email from a form field
+
+            const responses = {
+                email: email,
+                q1: quiz1Response,
+                q2: quiz2Response,
+                q3: quiz3Response,
+                q4: quiz4Response
+            };
+
+            try {
+                const response = await fetch('submit_responses.php', {
+                    method: 'POST',
+                    body: JSON.stringify(responses),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        alert(result.message);
+                    } else {
+                        alert(`There was an error submitting your responses. Please try again. Error: ${result.message}`);
+                    }
+                } else {
+                    const responseBody = await response.text();
+                    alert(`There was an error submitting your responses. Please try again. Response: ${responseBody}`);
+                }
+            } catch (error) {
+                alert(`There was an error submitting your responses. Please try again. Error: ${error.message}`);
+            }
+        }
+
+        // Video stream setup
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                document.getElementById('video1').srcObject = stream;
+                document.getElementById('video2').srcObject = stream;
+                document.getElementById('video3').srcObject = stream;
+            }).catch(function(error) {
+                console.error("Error accessing webcam: ", error);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
