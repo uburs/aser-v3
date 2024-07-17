@@ -288,14 +288,12 @@
         function displayCaptionPage2(captionBox, textArray, index = 0, wordsPerLine = 7) {
     if (index < textArray.length) {
         setTimeout(() => {
-            let line = textArray.slice(index, index + wordsPerLine).map(word => {
-                const span = document.createElement('span');
-                span.classList.add('caption-text', `emotion-${word.emotion}`);
-                span.textContent = word.text;
-                return span;
-            });
+            let line = textArray.slice(index, index + wordsPerLine).join(' ');
+            const span = document.createElement('span');
+            span.classList.add('caption-text');
+            span.textContent = line;
 
-            line.forEach(span => captionBox.appendChild(span));
+            captionBox.appendChild(span);
             captionBox.appendChild(document.createElement('br'));
             captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
 
@@ -304,17 +302,16 @@
     }
 }
 
+
 function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7) {
     if (index < textArray.length) {
         setTimeout(() => {
-            let line = textArray.slice(index, index + wordsPerLine).map(word => {
-                const span = document.createElement('span');
-                span.classList.add('caption-text', `emotion-${word.emotion}`);
-                span.textContent = word.text;
-                return span;
-            });
+            let line = textArray.slice(index, index + wordsPerLine).join(' ');
+            const span = document.createElement('span');
+            span.classList.add('caption-text');
+            span.textContent = line;
 
-            line.forEach(span => captionBox.appendChild(span));
+            captionBox.appendChild(span);
             captionBox.appendChild(document.createElement('br'));
             captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
 
@@ -322,6 +319,7 @@ function displayCaptionPage4(captionBox, textArray, index = 0, wordsPerLine = 7)
         }, 1000); // Adjust the speed of the captions here
     }
 }
+
 
         window.onload = () => {
             const pages = ['page1', 'page2', 'page3', 'page4'];
