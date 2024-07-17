@@ -175,13 +175,13 @@
             </div>
         </div>
         <div id="quiz2" class="quiz-container">
-            <h3>Quiz: Which area does computer science cover?</h3>
+            <h3>Quiz: Which area does engineering cover?</h3>
             <form id="quizForm2">
                 <label>
                     <input type="radio" name="q2" value="Cooking"> Cooking
                 </label><br>
                 <label>
-                    <input type="radio" name="q2" value="Programming, systems architecture, databases, and software engineering"> Programming, systems architecture, databases, and software engineering
+                    <input type="radio" name="q2" value="Building, design, and technology"> Building, design, and technology
                 </label><br>
                 <label>
                     <input type="radio" name="q2" value="History"> History
@@ -202,13 +202,13 @@
             <!-- Captions will appear here -->
         </div>
         <div id="quiz3" class="quiz-container">
-            <h3>Quiz: What are the recent growth areas in computer science?</h3>
+            <h3>Quiz: What are the recent growth areas in biology?</h3>
             <form id="quizForm3">
                 <label>
                     <input type="radio" name="q3" value="Artificial intelligence, machine learning, and data science"> Artificial intelligence, machine learning, and data science
                 </label><br>
                 <label>
-                    <input type="radio" name="q3" value="Painting"> Painting
+                    <input type="radio" name="q3" value="Genomics, biotechnology, and ecology"> Genomics, biotechnology, and ecology
                 </label><br>
                 <label>
                     <input type="radio" name="q3" value="Carpentry"> Carpentry
@@ -226,7 +226,7 @@
             <!-- Captions will appear here -->
         </div>
         <div id="quiz4" class="quiz-container">
-            <h3>Quiz: Why is understanding computer science concepts crucial?</h3>
+            <h3>Quiz: Why is understanding chemistry concepts crucial?</h3>
             <form id="quizForm4">
                 <label>
                     <input type="radio" name="q4" value="For developing efficient and innovative technological solutions"> For developing efficient and innovative technological solutions
@@ -246,20 +246,20 @@
     </div>
 
     <script>
-        const fullText = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
-        const enhancedText = "Introduction to Computer Science: <b>Computer science</b> is the study of <b>computation</b>, <b>automation</b>, and <b>information</b>. It involves the theory of <b>computation</b>, <b>algorithms</b>, <b>data structures</b>, <b>computer and network design</b>, and <b>artificial intelligence</b>. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including <b>programming</b>, <b>systems architecture</b>, <b>databases</b>, and <b>software engineering</b>. Additionally, fields like <b>artificial intelligence</b>, <b>machine learning</b>, and <b>data science</b> have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
-        const emotionText = "Hello everyone! 😊 Welcome to our session. I am excited 😄 to share this with you. The results are surprising 😲. We should be cautious 😟 with our conclusions. Thank you for your attention. 🙏";
+        const textPage1 = "Introduction to Computer Science: Computer science is the study of computation, automation, and information. It involves the theory of computation, algorithms, data structures, computer and network design, and artificial intelligence. Understanding these concepts is crucial for developing efficient and innovative technological solutions. Computer science spans several core areas including programming, systems architecture, databases, and software engineering. Additionally, fields like artificial intelligence, machine learning, and data science have grown significantly in recent years. By mastering computer science principles, you can develop software that solves real-world problems, create systems that drive the future of technology, and contribute to advancements in numerous industries.";
         
-        const captions = fullText.split(' ').map(word => ({ text: word, emotion: "neutral" }));
-        const enhancedCaptions = enhancedText.split(' ').map(word => {
-            return { text: word.replace(/<b>|<\/b>/g, ''), emotion: "neutral", bold: /<b>/.test(word) };
-        });
-        const emotionCaptions = emotionText.split(' ').map(word => {
+        const textPage2 = "Introduction to Engineering: Engineering is the application of scientific principles to design, build, and analyze objects and systems. It involves various disciplines such as mechanical, civil, electrical, and chemical engineering, each focusing on different aspects of technology and design. Mechanical engineering deals with the design and manufacturing of physical systems, while civil engineering focuses on the construction of infrastructure such as buildings and bridges. Electrical engineering encompasses the study of electronics, electromagnetism, and circuit design. Chemical engineering involves the transformation of raw materials into useful products through chemical processes. Understanding engineering principles allows for the creation of innovative solutions to complex problems, improves efficiency, and drives technological advancements across various industries. Engineers play a critical role in shaping the modern world by developing new technologies, enhancing existing systems, and ensuring sustainable development. As the demand for technological innovation grows, the field of engineering continues to evolve, incorporating cutting-edge research and advancements to address the challenges of the future.";
+        
+        const textPage3 = "Introduction to Biology: Biology is the scientific study of life and living organisms. It encompasses a wide range of fields, including genetics, microbiology, ecology, and physiology. Biologists explore the structure, function, growth, origin, evolution, and distribution of living organisms. Genetics focuses on the heredity and variation of organisms, while microbiology studies microscopic organisms such as bacteria, viruses, and fungi. Ecology examines the interactions of organisms with their environment, and physiology explores the functions and mechanisms within living systems. Modern biology is increasingly interdisciplinary, combining principles from chemistry, physics, and mathematics to understand complex biological systems. Recent advancements in biotechnology and genomics have revolutionized the field, leading to significant breakthroughs in medicine, agriculture, and environmental conservation. Understanding biology is essential for addressing global challenges such as disease outbreaks, environmental degradation, and food security. By studying biology, scientists can develop new treatments for diseases, enhance crop yields, and protect endangered species. As our knowledge of biological processes expands, biology will continue to play a crucial role in improving human health and preserving the natural world.";
+        
+        const textPage4 = "Introduction to Chemistry: Chemistry is the branch of science that studies the composition, structure, properties, and changes of matter. It involves understanding how substances interact, combine, and transform to form new substances. Chemistry is divided into several sub-disciplines, including organic chemistry, inorganic chemistry, physical chemistry, analytical chemistry, and biochemistry. Organic chemistry focuses on the study of carbon-containing compounds, while inorganic chemistry deals with inorganic compounds. Physical chemistry combines principles of physics and chemistry to study the physical properties of molecules, the forces that act upon them, and their interactions. Analytical chemistry involves the analysis of material samples to understand their chemical composition and structure. Biochemistry explores the chemical processes within and related to living organisms. Chemistry plays a vital role in various industries, including pharmaceuticals, agriculture, environmental science, and materials engineering. Recent advancements in chemistry have led to the development of new materials, sustainable energy solutions, and improved analytical techniques. Understanding chemistry is crucial for developing new drugs, creating innovative materials, and addressing environmental issues. As our knowledge of chemical processes deepens, chemistry will continue to drive scientific and technological progress, contributing to a better understanding of the natural world and the development of solutions to global challenges. 😊 Chemistry is fascinating 😄 and has a profound impact on our daily lives. Let's explore its wonders together! 🙏";
+        
+        const captionsPage1 = textPage1.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const captionsPage2 = textPage2.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const captionsPage3 = textPage3.split(' ').map(word => ({ text: word, emotion: "neutral" }));
+        const captionsPage4 = textPage4.split(' ').map(word => {
             let emotion = "neutral";
-            if (/😊|😄/.test(word)) emotion = "happy";
-            else if (/😲/.test(word)) emotion = "surprised";
-            else if (/😟/.test(word)) emotion = "sad";
-            else if (/🙏/.test(word)) emotion = "thankful";
+            if (/😊|😄|🙏/.test(word)) emotion = "happy";
             return { text: word, emotion };
         });
 
@@ -273,63 +273,7 @@
                     captionBox.appendChild(span);
                     captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
                     displayCaption(captionBox, textArray, index + 1);
-                }, 500); // Adjust the speed of the captions here
-            }
-        }
-
-        function displayFlowingCaption(captionBox, text) {
-            const words = text.split(' ');
-            let line = [];
-            let index = 0;
-
-            function addLine() {
-                if (index < words.length) {
-                    line.push(words[index]);
-                    index++;
-                    if (line.length === 7 || index === words.length) {
-                        const span = document.createElement('span');
-                        span.classList.add('caption-text');
-                        span.textContent = line.join(' ');
-                        captionBox.appendChild(span);
-                        captionBox.appendChild(document.createElement('br'));
-                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
-                        line = [];
-                        setTimeout(addLine, 1000); // Adjust the speed of the captions here
-                    } else {
-                        setTimeout(addLine, 0);
-                    }
-                }
-            }
-
-            addLine();
-        }
-
-        function displayEnhancedCaption(captionBox, textArray, index = 0) {
-            if (index < textArray.length) {
-                setTimeout(() => {
-                    const { text, emotion, bold } = textArray[index];
-                    const span = document.createElement('span');
-                    span.classList.add('caption-text', `emotion-${emotion}`);
-                    if (bold) span.classList.add('bold');
-                    span.textContent = text;
-                    captionBox.appendChild(span);
-                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
-                    displayEnhancedCaption(captionBox, textArray, index + 1);
-                }, 500); // Adjust the speed of the captions here
-            }
-        }
-
-        function displayEmotionCaption(captionBox, textArray, index = 0) {
-            if (index < textArray.length) {
-                setTimeout(() => {
-                    const { text, emotion } = textArray[index];
-                    const span = document.createElement('span');
-                    span.classList.add('emotion-text', `emotion-${emotion}`);
-                    span.textContent = text;
-                    captionBox.appendChild(span);
-                    captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
-                    displayEmotionCaption(captionBox, textArray, index + 1);
-                }, 500); // Adjust the speed of the captions here
+                }, 100); // Adjust the speed of the captions here
             }
         }
 
@@ -350,6 +294,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
+                    if (currentPageIndex === 1) displayCaption(document.getElementById('captionBox2'), captionsPage2);
                 }
             };
 
@@ -364,6 +309,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
+                    if (currentPageIndex === 2) displayCaption(document.getElementById('captionBox3'), captionsPage3);
                 }
             };
 
@@ -378,6 +324,7 @@
                 if (currentPageIndex < pages.length - 1) {
                     currentPageIndex++;
                     showPage(currentPageIndex);
+                    if (currentPageIndex === 3) displayCaption(document.getElementById('captionBox4'), captionsPage4);
                 }
             };
 
@@ -390,10 +337,7 @@
 
             document.getElementById('submit').onclick = submitResponses;
 
-            displayCaption(document.getElementById('captionBox1'), captions);
-            displayFlowingCaption(document.getElementById('captionBox2'), fullText);
-            displayEnhancedCaption(document.getElementById('captionBox3'), enhancedCaptions);
-            displayFlowingEmotionCaption(document.getElementById('captionBox4'), emotionCaptions);
+            displayCaption(document.getElementById('captionBox1'), captionsPage1);
         };
 
         async function submitResponses() {
@@ -434,48 +378,6 @@
             } catch (error) {
                 alert(`There was an error submitting your responses. Please try again. Error: ${error.message}`);
             }
-        }
-
-        function displayFlowingEmotionCaption(captionBox, textArray) {
-            let index = 0;
-            let line = [];
-            
-            function addLine() {
-                if (index < textArray.length) {
-                    line.push(textArray[index]);
-                    index++;
-                    if (line.length === 7 || index === textArray.length) {
-                        const span = document.createElement('span');
-                        span.classList.add('emotion-text');
-                        line.forEach(wordObj => {
-                            const wordSpan = document.createElement('span');
-                            wordSpan.classList.add(`emotion-${wordObj.emotion}`);
-                            wordSpan.textContent = wordObj.text + ' ';
-                            span.appendChild(wordSpan);
-                        });
-                        captionBox.appendChild(span);
-                        captionBox.appendChild(document.createElement('br'));
-                        captionBox.scrollTop = captionBox.scrollHeight; // Scroll to bottom
-                        line = [];
-                        setTimeout(addLine, 1000); // Adjust the speed of the captions here
-                    } else {
-                        setTimeout(addLine, 0);
-                    }
-                }
-            }
-
-            addLine();
-        }
-
-        // Video stream setup
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-                document.getElementById('video1').srcObject = stream;
-                document.getElementById('video2').srcObject = stream;
-                document.getElementById('video3').srcObject = stream;
-            }).catch(function(error) {
-                console.error("Error accessing webcam: ", error);
-            });
         }
     </script>
 </body>
