@@ -162,6 +162,12 @@
             font-size: 18px;
             background-color: rgb(198, 205, 125);
         }
+        .content-page4 {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            flex-grow: 1;
+        }
     </style>
 </head>
 <body>
@@ -245,23 +251,25 @@
         </div>
     </div>
 
-    <div id="page4" class="container">
-        <div class="emotion-detection-overlay" id="captionBox4">
-            <!-- Captions will appear here -->
-        </div>
-        <div id="quiz4" class="quiz-container">
-            <h3>Quiz: Why is understanding chemistry concepts crucial?</h3>
-            <form id="quizForm4">
-                <label>
-                    <input type="radio" name="q4" value="For developing efficient and innovative technological solutions"> For developing efficient and innovative technological solutions
-                </label><br>
-                <label>
-                    <input type="radio" name="q4" value="For gardening"> For gardening
-                </label><br>
-                <label>
-                    <input type="radio" name="q4" value="For cooking recipes"> For cooking recipes
-                </label><br>
-            </form>
+    <div id="page4" class="container active">
+        <div class="content-page4">
+            <div class="emotion-detection-overlay caption-box" id="captionBox4">
+                <!-- Captions will appear here -->
+            </div>
+            <div id="quiz4" class="quiz-container">
+                <h3>Quiz: Why is understanding chemistry concepts crucial?</h3>
+                <form id="quizForm4">
+                    <label>
+                        <input type="radio" name="q4" value="For developing efficient and innovative technological solutions"> For developing efficient and innovative technological solutions
+                    </label><br>
+                    <label>
+                        <input type="radio" name="q4" value="For gardening"> For gardening
+                    </label><br>
+                    <label>
+                        <input type="radio" name="q4" value="For cooking recipes"> For cooking recipes
+                    </label><br>
+                </form>
+            </div>
         </div>
         <div class="navigation">
             <div class="left-buttons">
