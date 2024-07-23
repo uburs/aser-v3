@@ -43,6 +43,19 @@
             line-height: 1.5;
             background: #fff;
         }
+
+        .quiz-container {
+            order: 3; /* Optional: adjust order if needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .emotion-happy {
             color: green;
         }
@@ -133,7 +146,7 @@
         .emotion-text {
             display: inline-block;
             margin-right: 5px;
-            animation: moveUp 10s linear infinite;
+            animation: moveUp 8s linear infinite;
         }
         @keyframes moveUp {
             from {
